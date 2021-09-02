@@ -1,0 +1,38 @@
+* {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.left-side-bar {
+  display: flex;
+  flex-direction: column;
+}
+
+.list-page {
+  display: flex;
+  flex-direction: column;
+}
+
+.to-do-item-page {
+  display: flex;
+  flex-direction: column;
+}
+
+.main-column {
+  padding: 20px;
+}
+
+.all-lists {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.list {
+  padding: 10px;
+}
