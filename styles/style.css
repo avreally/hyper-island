@@ -1,30 +1,25 @@
 * {
   font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
 }
 
 .container {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-}
-
-.left-side-bar {
-  display: flex;
-  flex-direction: column;
-}
-
-.list-page {
-  display: flex;
-  flex-direction: column;
-}
-
-.to-do-item-page {
-  display: flex;
-  flex-direction: column;
+  justify-content: center;
 }
 
 .main-column {
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-basis: 30%;
+  padding-left: 20px;
+}
+
+.left-side-bar {
+  /*display: flex;*/
+  /*flex-direction: column;*/
+  background-color: #E9ECEF;
 }
 
 .all-lists {
@@ -33,6 +28,39 @@
   justify-content: flex-start;
 }
 
+.title {
+  padding: 20px 0;
+  font-size: 1.3em;
+  font-weight: 600;
+}
+
 .list {
-  padding: 10px;
+  padding: 10px 0;
+}
+
+/*.list-page {*/
+/*  display: flex;*/
+/*  flex-direction: column;*/
+/*}*/
+
+.to-do-item-page {
+  justify-content: space-between;
+}
+
+.to-do-item {
+  padding: 10px 0;
+}
+
+.add-task-form {
+  display: flex;
+  flex-direction: row;
+}
+
+.add-task-input {
+  margin-right: 5px;
+}
+
+.edit-delete-buttons {
+  display: flex;
+  flex-direction: row;
 }

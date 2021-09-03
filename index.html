@@ -12,24 +12,32 @@
 <body>
   <div class="container">
     <div class="left-side-bar main-column">
-      <div>Title of lists</div>
+      <div class="title">Title of lists</div>
       <div class="all-lists">
-        <div class="list">Default list 1</div>
-        <div class="list">Default list 2</div>
+        <div class="list">Today</div>
+        <div class="list">Important</div>
       </div>
     </div>
     <div class="list-page main-column">
-      <div>Default list 1</div>
-      <div>Description</div>
-      <div>To Do Item 1</div>
-      <div>To Do Item 2</div>
-      <div>To Do Item 3</div>
+      <div class="title">Today</div>
+      <div class="list-description">Some description of the list</div>
+      <div class="to-do-item">To Do Item 1</div>
+      <div class="to-do-item">To Do Item 2</div>
+      <div class="to-do-item">To Do Item 3</div>
+      <form class="add-task-form">
+          <input type="text" class="add-task-input">
+          <button type="submit">Add task</button>
+      </form>
     </div>
     <div class="to-do-item-page main-column">
-      <div>To Do Item</div>
+      <div class="title">To Do Item Title</div>
       <div>Due date</div>
       <div>Priority</div>
-      <div>Description</div>
+      <div>Some description of the to do item</div>
+      <div class="edit-delete-buttons">
+        <button>Edit</button>
+        <button>Delete</button>
+      </div>
     </div>
   </div>
 </body>
