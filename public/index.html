@@ -11,7 +11,6 @@
       rel="stylesheet"
     />
     <title>ToDo List</title>
-    <script src="App.js"></script>
   </head>
   <body>
     <div class="container">
@@ -28,9 +27,9 @@
         <div class="to-do-item">To Do Item 1</div>
         <div class="to-do-item">To Do Item 2</div>
         <div class="to-do-item">To Do Item 3</div>
-        <form class="add-task-form">
+        <form class="add-task-form" id="form-submit">
           <input type="text" class="add-task-input" />
-          <button type="submit">Add task</button>
+          <button type="submit" id="btn">Add task</button>
         </form>
       </div>
       <div class="to-do-item-page main-column">
@@ -44,5 +43,6 @@
         </div>
       </div>
     </div>
+    <script src="App.js"></script>
   </body>
 </html>
