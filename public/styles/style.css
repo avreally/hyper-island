@@ -1,5 +1,5 @@
 * {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 16px;
 }
 
@@ -19,7 +19,7 @@
 .left-side-bar {
   /*display: flex;*/
   /*flex-direction: column;*/
-  background-color: #E9ECEF;
+  background-color: #e9ecef;
 }
 
 .all-lists {
