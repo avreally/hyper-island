@@ -17,8 +17,6 @@
 }
 
 .left-side-bar {
-  /*display: flex;*/
-  /*flex-direction: column;*/
   background-color: #e9ecef;
 }
 
@@ -38,17 +36,13 @@
   padding: 10px 0;
 }
 
-/*.list-page {*/
-/*  display: flex;*/
-/*  flex-direction: column;*/
-/*}*/
-
-.to-do-item-page {
+.todo-item-page {
   justify-content: space-between;
 }
 
-.to-do-item {
+.todo-item {
   padding: 10px 0;
+  font-weight: 400;
 }
 
 .add-task-form {

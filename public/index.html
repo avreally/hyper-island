@@ -10,39 +10,34 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap"
       rel="stylesheet"
     />
+    <script src="App.js" defer></script>
     <title>ToDo List</title>
   </head>
   <body>
     <div class="container">
       <div class="left-side-bar main-column">
-        <!--        <div class="title">Title of lists</div>-->
         <div class="all-lists">
           <div class="list">Today</div>
           <div class="list">Important</div>
         </div>
       </div>
       <div class="list-page main-column">
-        <div class="title">Today</div>
-        <div class="list-description">Some description of the list</div>
-        <div class="to-do-item">To Do Item 1</div>
-        <div class="to-do-item">To Do Item 2</div>
-        <div class="to-do-item">To Do Item 3</div>
-        <form class="add-task-form" id="form-submit">
+        <div class="title" id="todo-list-title">Today</div>
+        <div id="todo-container"></div>
+
+        <form class="add-task-form">
           <input type="text" class="add-task-input" />
-          <button type="submit" id="btn">Add task</button>
+          <button type="submit">Add task</button>
         </form>
       </div>
-      <div class="to-do-item-page main-column">
+      <div class="todo-item-page main-column">
         <div class="title">To Do Item Title</div>
         <div>Due date</div>
-        <div>Priority</div>
-        <div>Some description of the to do item</div>
         <div class="edit-delete-buttons">
           <button>Edit</button>
           <button>Delete</button>
         </div>
       </div>
     </div>
-    <script src="App.js"></script>
   </body>
 </html>
