@@ -1,4 +1,5 @@
-// import { format } from "date-fns";
+import { formatISO } from "date-fns";
+import "./styles/style.css";
 
 const form = document.querySelector(".add-task-form");
 const input = document.querySelector(".add-task-input");
@@ -6,8 +7,8 @@ const taskContainer = document.getElementById("todo-container");
 
 const taskFactory = (title) => {
   const isDone = false;
-  // const creationDate = format(Date.now());
-  return { title, isDone };
+  const creationDate = formatISO(Date.now());
+  return { title, isDone, creationDate };
 };
 
 let tasksList = localStorage.getItem("tasks")

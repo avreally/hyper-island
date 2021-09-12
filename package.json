@@ -1,0 +1,19 @@
+{
+  "name": "project-1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "esbuild": "^0.12.26",
+    "prettier": "^2.3.2",
+    "date-fns": "^2.23.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "build": "esbuild src/App.js --bundle --outfile=public/bundle.js",
+    "watch": "esbuild src/App.js --bundle --watch --outfile=public/bundle.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
