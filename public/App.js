@@ -10,7 +10,9 @@ const taskFactory = (title) => {
   return { title, isDone };
 };
 
-const tasksList = [];
+let tasksList = localStorage.getItem("tasks")
+  ? JSON.parse(localStorage.getItem("tasks"))
+  : [];
 
 const appendTaskToDOM = (task) => {
   let div = document.createElement("div");
@@ -29,18 +31,23 @@ const appendTaskToDOM = (task) => {
   taskContainer.append(div);
 };
 
+tasksList.forEach((task) => {
+  appendTaskToDOM(task);
+});
+
 const addTask = (event) => {
   event.preventDefault();
   let title = input.value;
 
   let newTask = taskFactory(title);
-  console.log("new task", newTask);
 
   tasksList.push(newTask);
 
-  appendTaskToDOM(newTask);
-  console.log("tasks list", tasksList);
   form.reset();
+
+  localStorage.setItem("tasks", JSON.stringify(tasksList));
+
+  appendTaskToDOM(newTask);
 };
 
 form.addEventListener("submit", addTask);
