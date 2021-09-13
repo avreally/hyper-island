@@ -1,4 +1,5 @@
 import { formatISO } from "date-fns";
+import { v4 as uuidv4 } from "uuid";
 import "./styles/style.css";
 
 const form = document.querySelector(".add-task-form");
@@ -8,7 +9,8 @@ const taskContainer = document.getElementById("todo-container");
 const taskFactory = (title) => {
   const isDone = false;
   const creationDate = formatISO(Date.now());
-  return { title, isDone, creationDate };
+  const taskId = uuidv4();
+  return { title, isDone, creationDate, taskId };
 };
 
 let tasksList = localStorage.getItem("tasks")
