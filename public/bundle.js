@@ -159,9 +159,11 @@
     let div = document.createElement("div");
     let label = document.createElement("label");
     label.textContent = task.title;
+    label.setAttribute("for", task.taskId);
     let checkbox = document.createElement("input");
     checkbox.setAttribute("type", "checkbox");
-    label.prepend(checkbox);
+    checkbox.setAttribute("id", task.taskId);
+    div.append(checkbox);
     div.append(label);
     div.classList.add("todo-item");
     taskContainer.append(div);

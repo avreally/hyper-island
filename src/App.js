@@ -22,12 +22,15 @@ const appendTaskToDOM = (task) => {
 
   let label = document.createElement("label");
   label.textContent = task.title;
+  label.setAttribute("for", task.taskId);
 
   let checkbox = document.createElement("input");
   checkbox.setAttribute("type", "checkbox");
+  checkbox.setAttribute("id", task.taskId);
 
-  label.prepend(checkbox);
+  // label.prepend(checkbox);
 
+  div.append(checkbox);
   div.append(label);
   div.classList.add("todo-item");
 
@@ -43,13 +46,11 @@ const addTask = (event) => {
   let title = input.value;
 
   let newTask = taskFactory(title);
-
   tasksList.push(newTask);
 
   form.reset();
 
   localStorage.setItem("tasks", JSON.stringify(tasksList));
-
   appendTaskToDOM(newTask);
 };
 
