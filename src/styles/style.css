@@ -45,7 +45,12 @@
   font-weight: 400;
 }
 
-input[type="checkbox"]:checked + label {
+/*input[type="checkbox"]:checked + label {*/
+/*  color: #c4c4c4;*/
+/*  text-decoration: line-through;*/
+/*}*/
+
+.task-checkbox:checked + label {
   color: #c4c4c4;
   text-decoration: line-through;
 }

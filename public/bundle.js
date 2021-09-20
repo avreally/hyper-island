@@ -149,12 +149,24 @@
   var input = document.querySelector(".add-task-input");
   var taskContainer = document.getElementById("todo-container");
   var taskFactory = (title) => {
-    const isDone = false;
+    let isDone = false;
     const creationDate = formatISO(Date.now());
     const taskId = v4_default();
     return { title, isDone, creationDate, taskId };
   };
   var tasksList = localStorage.getItem("tasks") ? JSON.parse(localStorage.getItem("tasks")) : [];
+  var toggleTaskDone = (task) => {
+    let id = task.taskId;
+    let index = tasksList.findIndex((task2) => task2.taskId === id);
+    tasksList[index].isDone = !tasksList[index].isDone;
+  };
+  var checkIsDone = (task) => {
+    let id = task.taskId;
+    if (task.isDone) {
+      let checkbox = document.getElementById(id);
+      checkbox.setAttribute("checked", "");
+    }
+  };
   var appendTaskToDOM = (task) => {
     let div = document.createElement("div");
     let label = document.createElement("label");
@@ -163,10 +175,16 @@
     let checkbox = document.createElement("input");
     checkbox.setAttribute("type", "checkbox");
     checkbox.setAttribute("id", task.taskId);
+    checkbox.setAttribute("class", "task-checkbox");
     div.append(checkbox);
     div.append(label);
     div.classList.add("todo-item");
+    checkbox.addEventListener("change", function() {
+      toggleTaskDone(task);
+      localStorage.setItem("tasks", JSON.stringify(tasksList));
+    });
     taskContainer.append(div);
+    checkIsDone(task);
   };
   tasksList.forEach((task) => {
     appendTaskToDOM(task);
