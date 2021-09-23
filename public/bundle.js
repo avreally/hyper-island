@@ -152,9 +152,10 @@
   var listImportant = document.getElementById("important-list");
   var taskFactory = (title) => {
     let isDone = false;
+    let isImportant = false;
     const creationDate = formatISO(Date.now());
     const taskId = v4_default();
-    return { title, isDone, creationDate, taskId };
+    return { title, isDone, isImportant, creationDate, taskId };
   };
   var tasksList = localStorage.getItem("tasks") ? JSON.parse(localStorage.getItem("tasks")) : [];
   var toggleTaskDone = (task) => {
@@ -164,29 +165,63 @@
   };
   var checkIsDone = (task) => {
     let id = task.taskId;
+    let checkbox = document.getElementById(id);
+    let icon = document.getElementById(`icon-${id}`);
     if (task.isDone) {
-      let checkbox = document.getElementById(id);
       checkbox.setAttribute("checked", "");
+      icon.classList.add("priority-icon-important");
+    } else {
+      icon.classList.remove("priority-icon-important");
+    }
+  };
+  var toggleTaskImportance = (task) => {
+    let id = task.taskId;
+    let index = tasksList.findIndex((task2) => task2.taskId === id);
+    tasksList[index].isImportant = !tasksList[index].isImportant;
+  };
+  var checkIsImportant = (task) => {
+    let id = `icon-${task.taskId}`;
+    let icon = document.getElementById(id);
+    if (task.isImportant) {
+      icon.innerHTML = "\u2605";
+    } else {
+      icon.innerHTML = "\u2606";
     }
   };
   var appendTaskToDOM = (task) => {
+    let id = task.taskId;
     let div = document.createElement("div");
+    div.classList.add("todo-item");
+    let innerDiv = document.createElement("div");
+    innerDiv.classList.add("todo-item-left-part");
     let label = document.createElement("label");
     label.textContent = task.title;
-    label.setAttribute("for", task.taskId);
+    label.setAttribute("for", id);
     let checkbox = document.createElement("input");
     checkbox.setAttribute("type", "checkbox");
-    checkbox.setAttribute("id", task.taskId);
+    checkbox.setAttribute("id", id);
     checkbox.setAttribute("class", "task-checkbox");
-    div.append(checkbox);
-    div.append(label);
-    div.classList.add("todo-item");
+    let priorityIcon = document.createElement("button");
+    priorityIcon.innerHTML = "\u2606";
+    priorityIcon.setAttribute("class", "priority-icon");
+    priorityIcon.setAttribute("id", `icon-${id}`);
+    innerDiv.append(checkbox);
+    innerDiv.append(label);
+    div.append(innerDiv);
+    div.append(priorityIcon);
     checkbox.addEventListener("change", function() {
       toggleTaskDone(task);
+      checkIsDone(task);
+      localStorage.setItem("tasks", JSON.stringify(tasksList));
+    });
+    priorityIcon.addEventListener("click", function() {
+      toggleTaskImportance(task);
+      checkIsImportant(task);
       localStorage.setItem("tasks", JSON.stringify(tasksList));
     });
     taskContainer.append(div);
     checkIsDone(task);
+    checkIsImportant(task);
   };
   tasksList.forEach((task) => {
     appendTaskToDOM(task);

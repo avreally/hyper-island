@@ -21,14 +21,6 @@
   flex-direction: column;
   justify-content: flex-start;
 }
-.list-page {
-  padding-left: 20px;
-}
-.title {
-  padding: 20px 0;
-  font-size: 1.3em;
-  font-weight: 600;
-}
 .list {
   padding: 10px 5px;
   background-color: inherit;
@@ -41,13 +33,35 @@
   background-color: #ddd;
 }
 .all-lists button.active {
-  background-color: #ccc;
+  background-color: #f2f4f6;
+}
+.list-page {
+  padding-left: 20px;
+}
+.title {
+  padding: 20px 0;
+  font-size: 1.3em;
+  font-weight: 600;
 }
 .todo-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   padding: 10px 0;
   font-weight: 400;
 }
 .task-checkbox:checked + label {
+  color: #c4c4c4;
+  text-decoration: line-through;
+}
+.priority-icon {
+  appearance: none;
+  margin: 0;
+  padding: 0;
+  border-style: none;
+  background-color: transparent;
+}
+.priority-icon-important {
   color: #c4c4c4;
   text-decoration: line-through;
 }
