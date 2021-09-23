@@ -36,6 +36,10 @@
   padding: 10px 0;
 }
 
+.list:hover {
+  cursor: pointer;
+}
+
 .todo-item-page {
   justify-content: space-between;
 }
@@ -67,4 +71,8 @@
 .edit-delete-buttons {
   display: flex;
   flex-direction: row;
+}
+
+.important-list {
+  display: none;
 }

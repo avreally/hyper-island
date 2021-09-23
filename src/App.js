@@ -4,7 +4,7 @@ import "./styles/style.css";
 
 const form = document.querySelector(".add-task-form");
 const input = document.querySelector(".add-task-input");
-const taskContainer = document.getElementById("todo-container");
+const taskContainer = document.querySelector(".todo-container");
 
 const taskFactory = (title) => {
   let isDone = false;

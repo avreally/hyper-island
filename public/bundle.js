@@ -147,7 +147,7 @@
   // src/App.js
   var form = document.querySelector(".add-task-form");
   var input = document.querySelector(".add-task-input");
-  var taskContainer = document.getElementById("todo-container");
+  var taskContainer = document.querySelector(".todo-container");
   var taskFactory = (title) => {
     let isDone = false;
     const creationDate = formatISO(Date.now());
