@@ -148,6 +148,8 @@
   var form = document.querySelector(".add-task-form");
   var input = document.querySelector(".add-task-input");
   var taskContainer = document.querySelector(".todo-container");
+  var listToday = document.getElementById("today-list");
+  var listImportant = document.getElementById("important-list");
   var taskFactory = (title) => {
     let isDone = false;
     const creationDate = formatISO(Date.now());
@@ -198,5 +200,19 @@
     localStorage.setItem("tasks", JSON.stringify(tasksList));
     appendTaskToDOM(newTask);
   };
+  var openList = (contentId, listId) => {
+    let listContent = document.getElementsByClassName("list-content");
+    [...listContent].forEach((list) => list.style.display = "none");
+    let lists = document.getElementsByClassName("list");
+    [...lists].forEach((list) => {
+      list.classList.remove("active");
+    });
+    document.getElementById(contentId).style.display = "block";
+    let currentList = document.getElementById(listId);
+    currentList.classList.add("active");
+  };
+  listToday.addEventListener("click", () => openList("today-content", "today-list"));
+  listImportant.addEventListener("click", () => openList("important-content", "important-list"));
+  document.getElementById("today-list").click();
   form.addEventListener("submit", addTask);
 })();

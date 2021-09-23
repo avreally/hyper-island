@@ -5,6 +5,8 @@ import "./styles/style.css";
 const form = document.querySelector(".add-task-form");
 const input = document.querySelector(".add-task-input");
 const taskContainer = document.querySelector(".todo-container");
+const listToday = document.getElementById("today-list");
+const listImportant = document.getElementById("important-list");
 
 const taskFactory = (title) => {
   let isDone = false;
@@ -43,8 +45,6 @@ const appendTaskToDOM = (task) => {
   checkbox.setAttribute("id", task.taskId);
   checkbox.setAttribute("class", "task-checkbox");
 
-  // label.prepend(checkbox);
-
   div.append(checkbox);
   div.append(label);
   div.classList.add("todo-item");
@@ -74,5 +74,32 @@ const addTask = (event) => {
   localStorage.setItem("tasks", JSON.stringify(tasksList));
   appendTaskToDOM(newTask);
 };
+
+const openList = (contentId, listId) => {
+  //listContent and lists is an HTMLCollection and HTMLCollections do not have the forEach() method.
+  //HTMLCollection can be used with the spread operator.
+  let listContent = document.getElementsByClassName("list-content");
+  [...listContent].forEach((list) => (list.style.display = "none"));
+
+  let lists = document.getElementsByClassName("list");
+  [...lists].forEach((list) => {
+    list.classList.remove("active");
+  });
+
+  document.getElementById(contentId).style.display = "block";
+
+  let currentList = document.getElementById(listId);
+  currentList.classList.add("active");
+};
+
+listToday.addEventListener("click", () =>
+  openList("today-content", "today-list")
+);
+listImportant.addEventListener("click", () =>
+  openList("important-content", "important-list")
+);
+
+//To show Today list on page load
+document.getElementById("today-list").click();
 
 form.addEventListener("submit", addTask);

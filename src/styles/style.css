@@ -13,7 +13,6 @@
   display: flex;
   flex-direction: column;
   flex-basis: 30%;
-  padding-left: 20px;
 }
 
 .left-side-bar {
@@ -26,6 +25,10 @@
   justify-content: flex-start;
 }
 
+.list-page {
+  padding-left: 20px;
+}
+
 .title {
   padding: 20px 0;
   font-size: 1.3em;
@@ -33,26 +36,27 @@
 }
 
 .list {
-  padding: 10px 0;
+  padding: 10px 5px;
+  background-color: inherit;
+  border: none;
+  text-align: left;
+  transition: 0.3s;
 }
 
 .list:hover {
   cursor: pointer;
+  background-color: #ddd;
 }
 
-.todo-item-page {
-  justify-content: space-between;
+/*Selected list class*/
+.all-lists button.active {
+  background-color: #ccc;
 }
 
 .todo-item {
   padding: 10px 0;
   font-weight: 400;
 }
-
-/*input[type="checkbox"]:checked + label {*/
-/*  color: #c4c4c4;*/
-/*  text-decoration: line-through;*/
-/*}*/
 
 .task-checkbox:checked + label {
   color: #c4c4c4;
@@ -68,11 +72,11 @@
   margin-right: 5px;
 }
 
-.edit-delete-buttons {
-  display: flex;
-  flex-direction: row;
-}
+/*.todo-item-page {*/
+/*  justify-content: space-between;*/
+/*}*/
 
-.important-list {
-  display: none;
-}
+/*.edit-delete-buttons {*/
+/*  display: flex;*/
+/*  flex-direction: row;*/
+/*}*/
