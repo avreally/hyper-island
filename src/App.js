@@ -4,9 +4,29 @@ import "./styles/style.css";
 
 const form = document.querySelector(".add-task-form");
 const input = document.querySelector(".add-task-input");
-const taskContainer = document.querySelector(".todo-container");
+const todayContainer = document.querySelector(".today-container");
+const importantContainer = document.querySelector(".important-container");
 const listToday = document.getElementById("today-list");
 const listImportant = document.getElementById("important-list");
+
+const listForm = document.querySelector(".add-list-form");
+const listInput = document.querySelector(".add-list-input");
+
+// Array of lists
+let listOfLists = [
+  { listTitle: "Today", listId: 1, listTasks: [] },
+  { listTitle: "Important", listId: 2, listTasks: [] },
+];
+
+localStorage.setItem("lists", JSON.stringify(listOfLists));
+
+// Lists factory function
+const listFactory = (listTitle) => {
+  const listId = uuidv4();
+  let listTasks = [];
+  return { listTitle, listId, listTasks };
+};
+//------
 
 const taskFactory = (title) => {
   let isDone = false;
@@ -96,7 +116,12 @@ const appendTaskToDOM = (task) => {
     localStorage.setItem("tasks", JSON.stringify(tasksList));
   });
 
-  taskContainer.append(div);
+  if (!task.isImportant) {
+    todayContainer.append(div);
+  } else {
+    importantContainer.append(div);
+  }
+
   checkIsDone(task);
   checkIsImportant(task);
 };
@@ -118,6 +143,53 @@ const addTask = (event) => {
   appendTaskToDOM(newTask);
 };
 
+// Function for rendering new list
+const appendListToDOM = (list) => {
+  let button = document.createElement("button");
+  button.setAttribute("class", "list");
+  button.setAttribute("id", list.listId);
+  button.innerHTML = list.listTitle;
+
+  let content = document.createElement("div");
+  content.setAttribute("class", "list-content");
+  content.setAttribute("id", `${list.listId}-content`);
+  content.style.display = "none";
+
+  let listTitle = document.createElement("h1");
+  listTitle.setAttribute("class", "title");
+  listTitle.innerHTML = list.listTitle;
+
+  let tasksContainer = document.createElement("div");
+  tasksContainer.setAttribute("class", `${list.listTitle}-container`);
+
+  content.append(listTitle);
+  content.append(tasksContainer);
+
+  document.querySelector(".list-page").append(content);
+
+  button.addEventListener("click", () =>
+    openList(`${list.listId}-content`, list.listId)
+  );
+
+  document.querySelector(".all-lists").append(button);
+};
+//------
+
+// Form to add list
+const addList = (event) => {
+  event.preventDefault();
+  let listTitle = listInput.value;
+
+  let newList = listFactory(listTitle);
+  listOfLists.push(newList);
+
+  listForm.reset();
+
+  localStorage.setItem("lists", JSON.stringify(listOfLists));
+  appendListToDOM(newList);
+};
+//------
+
 const openList = (contentId, listId) => {
   //listContent and lists is an HTMLCollection and HTMLCollections do not have the forEach() method.
   //HTMLCollection can be used with the spread operator.
@@ -135,6 +207,7 @@ const openList = (contentId, listId) => {
   currentList.classList.add("active");
 };
 
+// Tabs of lists on the sidebar
 listToday.addEventListener("click", () =>
   openList("today-content", "today-list")
 );
@@ -146,3 +219,6 @@ listImportant.addEventListener("click", () =>
 document.getElementById("today-list").click();
 
 form.addEventListener("submit", addTask);
+
+// Event listener to add new list
+listForm.addEventListener("submit", addList);

@@ -53,6 +53,7 @@
   padding: 20px 0;
   font-size: 1.3em;
   font-weight: 600;
+  margin: 0px;
 }
 
 .todo-item {
@@ -82,12 +83,14 @@
 }
 
 /*Input form styles*/
-.add-task-form {
+.add-task-form,
+.add-list-form {
   display: flex;
   flex-direction: row;
 }
 
-.add-task-input {
+.add-task-input,
+.add-list-input {
   margin-right: 5px;
 }
 

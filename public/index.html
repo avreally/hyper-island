@@ -20,18 +20,23 @@
           <button class="list" id="today-list">Today</button>
           <button class="list" id="important-list">Important</button>
         </div>
+        <form class="add-list-form">
+          <input type="text" class="add-list-input" />
+          <button type="submit">Add list</button>
+        </form>
       </div>
-      <div class="list-page main-column">
-        <div class="list-content" id="today-content">
-          <div class="title" id="todo-list-title">Today</div>
-          <div class="todo-container"></div>
-        </div>
+      <div class="main-column">
+        <div class="list-page">
+          <div class="list-content" id="today-content">
+            <h1 class="title" id="todo-list-title">Today</h1>
+            <div class="today-container"></div>
+          </div>
 
-        <div class="list-content" id="important-content">
-          <div class="title">Important</div>
-          <div class="todo-container"></div>
+          <div class="list-content" id="important-content">
+            <h1 class="title">Important</h1>
+            <div class="important-container"></div>
+          </div>
         </div>
-
         <form class="add-task-form">
           <input type="text" class="add-task-input" />
           <button type="submit">Add task</button>

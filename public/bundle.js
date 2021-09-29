@@ -147,9 +147,22 @@
   // src/App.js
   var form = document.querySelector(".add-task-form");
   var input = document.querySelector(".add-task-input");
-  var taskContainer = document.querySelector(".todo-container");
+  var todayContainer = document.querySelector(".today-container");
+  var importantContainer = document.querySelector(".important-container");
   var listToday = document.getElementById("today-list");
   var listImportant = document.getElementById("important-list");
+  var listForm = document.querySelector(".add-list-form");
+  var listInput = document.querySelector(".add-list-input");
+  var listOfLists = [
+    { listTitle: "Today", listId: 1, listTasks: [] },
+    { listTitle: "Important", listId: 2, listTasks: [] }
+  ];
+  localStorage.setItem("lists", JSON.stringify(listOfLists));
+  var listFactory = (listTitle) => {
+    const listId = v4_default();
+    let listTasks = [];
+    return { listTitle, listId, listTasks };
+  };
   var taskFactory = (title) => {
     let isDone = false;
     let isImportant = false;
@@ -219,7 +232,11 @@
       checkIsImportant(task);
       localStorage.setItem("tasks", JSON.stringify(tasksList));
     });
-    taskContainer.append(div);
+    if (!task.isImportant) {
+      todayContainer.append(div);
+    } else {
+      importantContainer.append(div);
+    }
     checkIsDone(task);
     checkIsImportant(task);
   };
@@ -234,6 +251,35 @@
     form.reset();
     localStorage.setItem("tasks", JSON.stringify(tasksList));
     appendTaskToDOM(newTask);
+  };
+  var appendListToDOM = (list) => {
+    let button = document.createElement("button");
+    button.setAttribute("class", "list");
+    button.setAttribute("id", list.listId);
+    button.innerHTML = list.listTitle;
+    let content = document.createElement("div");
+    content.setAttribute("class", "list-content");
+    content.setAttribute("id", `${list.listId}-content`);
+    content.style.display = "none";
+    let listTitle = document.createElement("h1");
+    listTitle.setAttribute("class", "title");
+    listTitle.innerHTML = list.listTitle;
+    let tasksContainer = document.createElement("div");
+    tasksContainer.setAttribute("class", `${list.listTitle}-container`);
+    content.append(listTitle);
+    content.append(tasksContainer);
+    document.querySelector(".list-page").append(content);
+    button.addEventListener("click", () => openList(`${list.listId}-content`, list.listId));
+    document.querySelector(".all-lists").append(button);
+  };
+  var addList = (event) => {
+    event.preventDefault();
+    let listTitle = listInput.value;
+    let newList = listFactory(listTitle);
+    listOfLists.push(newList);
+    listForm.reset();
+    localStorage.setItem("lists", JSON.stringify(listOfLists));
+    appendListToDOM(newList);
   };
   var openList = (contentId, listId) => {
     let listContent = document.getElementsByClassName("list-content");
@@ -250,4 +296,5 @@
   listImportant.addEventListener("click", () => openList("important-content", "important-list"));
   document.getElementById("today-list").click();
   form.addEventListener("submit", addTask);
+  listForm.addEventListener("submit", addList);
 })();
