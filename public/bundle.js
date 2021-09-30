@@ -147,15 +147,11 @@
   // src/App.js
   var form = document.querySelector(".add-task-form");
   var input = document.querySelector(".add-task-input");
-  var todayContainer = document.querySelector(".today-container");
-  var importantContainer = document.querySelector(".important-container");
-  var listToday = document.getElementById("today-list");
-  var listImportant = document.getElementById("important-list");
   var listForm = document.querySelector(".add-list-form");
   var listInput = document.querySelector(".add-list-input");
-  var listOfLists = [
-    { listTitle: "Today", listId: 1, listTasks: [] },
-    { listTitle: "Important", listId: 2, listTasks: [] }
+  var listOfLists = localStorage.getItem("lists") ? JSON.parse(localStorage.getItem("lists")) : [
+    { listTitle: "Today", listId: "101", listTasks: [] },
+    { listTitle: "Important", listId: "102", listTasks: [] }
   ];
   localStorage.setItem("lists", JSON.stringify(listOfLists));
   var listFactory = (listTitle) => {
@@ -170,11 +166,13 @@
     const taskId = v4_default();
     return { title, isDone, isImportant, creationDate, taskId };
   };
-  var tasksList = localStorage.getItem("tasks") ? JSON.parse(localStorage.getItem("tasks")) : [];
   var toggleTaskDone = (task) => {
+    let currentList = document.querySelector(".active");
+    let listId = currentList.id;
+    let listIndex = listOfLists.findIndex((list) => list.listId === listId);
     let id = task.taskId;
-    let index = tasksList.findIndex((task2) => task2.taskId === id);
-    tasksList[index].isDone = !tasksList[index].isDone;
+    let index = listOfLists[listIndex].listTasks.findIndex((task2) => task2.taskId === id);
+    listOfLists[listIndex].listTasks[index].isDone = !listOfLists[listIndex].listTasks[index].isDone;
   };
   var checkIsDone = (task) => {
     let id = task.taskId;
@@ -188,9 +186,12 @@
     }
   };
   var toggleTaskImportance = (task) => {
+    let currentList = document.querySelector(".active");
+    let listId = currentList.id;
+    let listIndex = listOfLists.findIndex((list) => list.listId === listId);
     let id = task.taskId;
-    let index = tasksList.findIndex((task2) => task2.taskId === id);
-    tasksList[index].isImportant = !tasksList[index].isImportant;
+    let index = listOfLists[listIndex].listTasks.findIndex((task2) => task2.taskId === id);
+    listOfLists[listIndex].listTasks[index].isImportant = !listOfLists[listIndex].listTasks[index].isImportant;
   };
   var checkIsImportant = (task) => {
     let id = `icon-${task.taskId}`;
@@ -201,7 +202,7 @@
       icon.innerHTML = "\u2606";
     }
   };
-  var appendTaskToDOM = (task) => {
+  var appendTaskToDOM = (task, listId) => {
     let id = task.taskId;
     let div = document.createElement("div");
     div.classList.add("todo-item");
@@ -222,35 +223,23 @@
     innerDiv.append(label);
     div.append(innerDiv);
     div.append(priorityIcon);
+    if (listId) {
+      document.querySelector(`#content-${listId}`).append(div);
+    } else {
+      document.querySelector(".activeContent").append(div);
+    }
     checkbox.addEventListener("change", function() {
       toggleTaskDone(task);
       checkIsDone(task);
-      localStorage.setItem("tasks", JSON.stringify(tasksList));
+      localStorage.setItem("lists", JSON.stringify(listOfLists));
     });
     priorityIcon.addEventListener("click", function() {
       toggleTaskImportance(task);
       checkIsImportant(task);
-      localStorage.setItem("tasks", JSON.stringify(tasksList));
+      localStorage.setItem("lists", JSON.stringify(listOfLists));
     });
-    if (!task.isImportant) {
-      todayContainer.append(div);
-    } else {
-      importantContainer.append(div);
-    }
     checkIsDone(task);
     checkIsImportant(task);
-  };
-  tasksList.forEach((task) => {
-    appendTaskToDOM(task);
-  });
-  var addTask = (event) => {
-    event.preventDefault();
-    let title = input.value;
-    let newTask = taskFactory(title);
-    tasksList.push(newTask);
-    form.reset();
-    localStorage.setItem("tasks", JSON.stringify(tasksList));
-    appendTaskToDOM(newTask);
   };
   var appendListToDOM = (list) => {
     let button = document.createElement("button");
@@ -259,18 +248,48 @@
     button.innerHTML = list.listTitle;
     let content = document.createElement("div");
     content.setAttribute("class", "list-content");
-    content.setAttribute("id", `${list.listId}-content`);
+    content.setAttribute("id", `content-${list.listId}`);
     content.style.display = "none";
     let listTitle = document.createElement("h1");
     listTitle.setAttribute("class", "title");
     listTitle.innerHTML = list.listTitle;
-    let tasksContainer = document.createElement("div");
-    tasksContainer.setAttribute("class", `${list.listTitle}-container`);
     content.append(listTitle);
-    content.append(tasksContainer);
     document.querySelector(".list-page").append(content);
-    button.addEventListener("click", () => openList(`${list.listId}-content`, list.listId));
+    button.addEventListener("click", () => openList(`content-${list.listId}`, list.listId));
     document.querySelector(".all-lists").append(button);
+  };
+  var openList = (contentId, listId) => {
+    let listContent = document.getElementsByClassName("list-content");
+    [...listContent].forEach((list) => (list.style.display = "none", list.classList.remove("activeContent")));
+    let lists = document.getElementsByClassName("list");
+    [...lists].forEach((list) => {
+      list.classList.remove("active");
+    });
+    document.getElementById(contentId).style.display = "block";
+    document.getElementById(contentId).classList.add("activeContent");
+    let currentList = document.getElementById(listId);
+    currentList.classList.add("active");
+  };
+  listOfLists.forEach((list) => {
+    appendListToDOM(list);
+  });
+  openList("content-101", "101");
+  listOfLists.forEach((list) => {
+    list.listTasks.forEach((task) => {
+      appendTaskToDOM(task, list.listId);
+    });
+  });
+  var addTask = (event) => {
+    event.preventDefault();
+    let title = input.value;
+    let newTask = taskFactory(title);
+    let currentList = document.querySelector(".active");
+    let id = currentList.id;
+    let index = listOfLists.findIndex((list) => list.listId === id);
+    listOfLists[index].listTasks.push(newTask);
+    form.reset();
+    localStorage.setItem("lists", JSON.stringify(listOfLists));
+    appendTaskToDOM(newTask);
   };
   var addList = (event) => {
     event.preventDefault();
@@ -281,20 +300,6 @@
     localStorage.setItem("lists", JSON.stringify(listOfLists));
     appendListToDOM(newList);
   };
-  var openList = (contentId, listId) => {
-    let listContent = document.getElementsByClassName("list-content");
-    [...listContent].forEach((list) => list.style.display = "none");
-    let lists = document.getElementsByClassName("list");
-    [...lists].forEach((list) => {
-      list.classList.remove("active");
-    });
-    document.getElementById(contentId).style.display = "block";
-    let currentList = document.getElementById(listId);
-    currentList.classList.add("active");
-  };
-  listToday.addEventListener("click", () => openList("today-content", "today-list"));
-  listImportant.addEventListener("click", () => openList("important-content", "important-list"));
-  document.getElementById("today-list").click();
   form.addEventListener("submit", addTask);
   listForm.addEventListener("submit", addList);
 })();

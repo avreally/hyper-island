@@ -4,19 +4,27 @@ import "./styles/style.css";
 
 const form = document.querySelector(".add-task-form");
 const input = document.querySelector(".add-task-input");
-const todayContainer = document.querySelector(".today-container");
-const importantContainer = document.querySelector(".important-container");
-const listToday = document.getElementById("today-list");
-const listImportant = document.getElementById("important-list");
+// const todayContainer = document.querySelector(".today-container");
+// const importantContainer = document.querySelector(".important-container");
 
 const listForm = document.querySelector(".add-list-form");
 const listInput = document.querySelector(".add-list-input");
 
+// // Array of lists
+// let listOfLists = [
+//   { listTitle: "Today", listId: "101", listTasks: [] },
+//   { listTitle: "Important", listId: "102", listTasks: [] },
+// ];
+//
+// localStorage.setItem("lists", JSON.stringify(listOfLists));
+
 // Array of lists
-let listOfLists = [
-  { listTitle: "Today", listId: 1, listTasks: [] },
-  { listTitle: "Important", listId: 2, listTasks: [] },
-];
+let listOfLists = localStorage.getItem("lists")
+  ? JSON.parse(localStorage.getItem("lists"))
+  : [
+      { listTitle: "Today", listId: "101", listTasks: [] },
+      { listTitle: "Important", listId: "102", listTasks: [] },
+    ];
 
 localStorage.setItem("lists", JSON.stringify(listOfLists));
 
@@ -36,14 +44,39 @@ const taskFactory = (title) => {
   return { title, isDone, isImportant, creationDate, taskId };
 };
 
-let tasksList = localStorage.getItem("tasks")
-  ? JSON.parse(localStorage.getItem("tasks"))
-  : [];
+// Removed this because I set listOfLists to Local storage at 21 line
+// let tasksList = localStorage.getItem("tasks")
+//   ? JSON.parse(localStorage.getItem("tasks"))
+//   : [];
+
+//TODO find index function (replace taskID and other to id)
+
+// const findIndex = (item, array) => {
+//   let id = item.taskId;
+//   let index = array.findIndex((task) => task.taskId === id);
+//   return index;
+// };
 
 const toggleTaskDone = (task) => {
+  //Finding a list in array of lists and it's index first
+  let currentList = document.querySelector(".active");
+  let listId = currentList.id;
+  let listIndex = listOfLists.findIndex((list) => list.listId === listId);
+  // listOfLists[listIndex];
+
+  //  then finding a task there
   let id = task.taskId;
-  let index = tasksList.findIndex((task) => task.taskId === id);
-  tasksList[index].isDone = !tasksList[index].isDone;
+
+  //TODO Finding index (create separate function bc I use it 3 times?)
+  let index = listOfLists[listIndex].listTasks.findIndex(
+    (task) => task.taskId === id
+  );
+  listOfLists[listIndex].listTasks[index].isDone =
+    !listOfLists[listIndex].listTasks[index].isDone;
+
+  // //  How it was
+  //   let index = tasksList.findIndex((task) => task.taskId === id);
+  //   tasksList[index].isDone = !tasksList[index].isDone;
 };
 
 const checkIsDone = (task) => {
@@ -60,9 +93,29 @@ const checkIsDone = (task) => {
 };
 
 const toggleTaskImportance = (task) => {
+  // //============ How it was
+  // let id = task.taskId;
+  //
+  // //TODO Finding index (create separate function bc I use it twice?)
+  // let index = tasksList.findIndex((task) => task.taskId === id);
+  // tasksList[index].isImportant = !tasksList[index].isImportant;
+  // //============
+
+  //Finding a list in array of lists first
+  let currentList = document.querySelector(".active");
+  let listId = currentList.id;
+  let listIndex = listOfLists.findIndex((list) => list.listId === listId);
+  // listOfLists[listIndex];
+
+  //  then finding a task there
   let id = task.taskId;
-  let index = tasksList.findIndex((task) => task.taskId === id);
-  tasksList[index].isImportant = !tasksList[index].isImportant;
+
+  //TODO Finding index (create separate function bc I use it 3 times?)
+  let index = listOfLists[listIndex].listTasks.findIndex(
+    (task) => task.taskId === id
+  );
+  listOfLists[listIndex].listTasks[index].isImportant =
+    !listOfLists[listIndex].listTasks[index].isImportant;
 };
 
 const checkIsImportant = (task) => {
@@ -76,10 +129,11 @@ const checkIsImportant = (task) => {
   }
 };
 
-const appendTaskToDOM = (task) => {
+const appendTaskToDOM = (task, listId) => {
   let id = task.taskId;
   let div = document.createElement("div");
   div.classList.add("todo-item");
+  // console.log("that is div", div);
 
   let innerDiv = document.createElement("div");
   innerDiv.classList.add("todo-item-left-part");
@@ -103,44 +157,58 @@ const appendTaskToDOM = (task) => {
   div.append(innerDiv);
   div.append(priorityIcon);
 
+  //new - not working
+  // let currentList = document.querySelector(".active");
+  // console.log("current list", currentList);
+  //
+  // let listContentArray = document.getElementsByClassName("list-content");
+  // console.log("array", listContentArray);
+  // for (let i = 0; i < listContentArray.length; i++) {
+  //   if (listContentArray[i].style.display === "block") {
+  //     document.querySelector("h1").append(div);
+  //     console.log("block");
+  //   } else {
+  //     console.log("not");
+  //   }
+  // }
+  // let listId = currentList.id;
+  // let container = document.querySelector(`.${listId}-container`);
+  // console.log("this is container", container);
+  // container.append(div);
+
+  //=====
+
+  if (listId) {
+    document.querySelector(`#content-${listId}`).append(div);
+  } else {
+    document.querySelector(".activeContent").append(div);
+  }
+
   checkbox.addEventListener("change", function () {
     toggleTaskDone(task);
     checkIsDone(task);
 
-    localStorage.setItem("tasks", JSON.stringify(tasksList));
+    // localStorage.setItem("tasks", JSON.stringify(tasksList));
+    localStorage.setItem("lists", JSON.stringify(listOfLists));
   });
 
   priorityIcon.addEventListener("click", function () {
     toggleTaskImportance(task);
     checkIsImportant(task);
-    localStorage.setItem("tasks", JSON.stringify(tasksList));
+    // localStorage.setItem("tasks", JSON.stringify(tasksList));
+    localStorage.setItem("lists", JSON.stringify(listOfLists));
   });
 
-  if (!task.isImportant) {
-    todayContainer.append(div);
-  } else {
-    importantContainer.append(div);
-  }
+  //Removed bc now tasks are added to listOfLists array
+  // if (!task.isImportant) {
+  //   todayContainer.append(div);
+  // } else {
+  //   importantContainer.append(div);
+  // }
 
+  //TODO Check if I need these two
   checkIsDone(task);
   checkIsImportant(task);
-};
-
-tasksList.forEach((task) => {
-  appendTaskToDOM(task);
-});
-
-const addTask = (event) => {
-  event.preventDefault();
-  let title = input.value;
-
-  let newTask = taskFactory(title);
-  tasksList.push(newTask);
-
-  form.reset();
-
-  localStorage.setItem("tasks", JSON.stringify(tasksList));
-  appendTaskToDOM(newTask);
 };
 
 // Function for rendering new list
@@ -152,28 +220,97 @@ const appendListToDOM = (list) => {
 
   let content = document.createElement("div");
   content.setAttribute("class", "list-content");
-  content.setAttribute("id", `${list.listId}-content`);
+  content.setAttribute("id", `content-${list.listId}`);
   content.style.display = "none";
 
   let listTitle = document.createElement("h1");
   listTitle.setAttribute("class", "title");
   listTitle.innerHTML = list.listTitle;
 
-  let tasksContainer = document.createElement("div");
-  tasksContainer.setAttribute("class", `${list.listTitle}-container`);
+  //Trying to remove it
+  // let tasksContainer = document.createElement("div");
+  // tasksContainer.setAttribute("class", `${list.listId}-container`);
 
   content.append(listTitle);
-  content.append(tasksContainer);
+  // content.append(tasksContainer);
 
   document.querySelector(".list-page").append(content);
 
   button.addEventListener("click", () =>
-    openList(`${list.listId}-content`, list.listId)
+    openList(`content-${list.listId}`, list.listId)
   );
 
   document.querySelector(".all-lists").append(button);
 };
 //------
+
+const openList = (contentId, listId) => {
+  //listContent and lists is an HTMLCollection and HTMLCollections do not have the forEach() method.
+  //HTMLCollection can be used with the spread operator.
+  let listContent = document.getElementsByClassName("list-content");
+  [...listContent].forEach(
+    (list) => (
+      (list.style.display = "none"), list.classList.remove("activeContent")
+    )
+  );
+
+  let lists = document.getElementsByClassName("list");
+  [...lists].forEach((list) => {
+    list.classList.remove("active");
+  });
+
+  document.getElementById(contentId).style.display = "block";
+  document.getElementById(contentId).classList.add("activeContent");
+
+  let currentList = document.getElementById(listId);
+  currentList.classList.add("active");
+};
+
+//TODO change
+// tasksList.forEach((task) => {
+//   appendTaskToDOM(task);
+// });
+
+listOfLists.forEach((list) => {
+  appendListToDOM(list);
+});
+
+//To show Today list on page load
+// document.getElementById("101").click();
+openList("content-101", "101");
+
+listOfLists.forEach((list) => {
+  list.listTasks.forEach((task) => {
+    // console.log("adding task");
+
+    // console.log("task is", task);
+    appendTaskToDOM(task, list.listId);
+  });
+});
+
+const addTask = (event) => {
+  event.preventDefault();
+  let title = input.value;
+
+  let newTask = taskFactory(title);
+
+  let currentList = document.querySelector(".active");
+  let id = currentList.id;
+
+  //TODO Finding index (create separate function bc I use it twice?)
+  let index = listOfLists.findIndex((list) => list.listId === id);
+  listOfLists[index].listTasks.push(newTask);
+  //------
+
+  // tasksList.push(newTask);
+
+  form.reset();
+
+  localStorage.setItem("lists", JSON.stringify(listOfLists));
+
+  // localStorage.setItem("tasks", JSON.stringify(tasksList));
+  appendTaskToDOM(newTask);
+};
 
 // Form to add list
 const addList = (event) => {
@@ -190,34 +327,17 @@ const addList = (event) => {
 };
 //------
 
-const openList = (contentId, listId) => {
-  //listContent and lists is an HTMLCollection and HTMLCollections do not have the forEach() method.
-  //HTMLCollection can be used with the spread operator.
-  let listContent = document.getElementsByClassName("list-content");
-  [...listContent].forEach((list) => (list.style.display = "none"));
+// // Tabs of lists on the sidebar
+// const listToday = document.getElementById("101");
+// // console.log("list today", listToday);
+// listToday.addEventListener("click", () => openList("today-content", "101"));
+//
+// const listImportant = document.getElementById("102");
+// listImportant.addEventListener("click", () =>
+//   openList("important-content", "102")
+// );
 
-  let lists = document.getElementsByClassName("list");
-  [...lists].forEach((list) => {
-    list.classList.remove("active");
-  });
-
-  document.getElementById(contentId).style.display = "block";
-
-  let currentList = document.getElementById(listId);
-  currentList.classList.add("active");
-};
-
-// Tabs of lists on the sidebar
-listToday.addEventListener("click", () =>
-  openList("today-content", "today-list")
-);
-listImportant.addEventListener("click", () =>
-  openList("important-content", "important-list")
-);
-
-//To show Today list on page load
-document.getElementById("today-list").click();
-
+// Event listener to add new task
 form.addEventListener("submit", addTask);
 
 // Event listener to add new list
