@@ -204,8 +204,8 @@
   };
   var appendTaskToDOM = (task, listId) => {
     let id = task.taskId;
-    let div = document.createElement("div");
-    div.classList.add("todo-item");
+    let li = document.createElement("li");
+    li.classList.add("todo-item");
     let innerDiv = document.createElement("div");
     innerDiv.classList.add("todo-item-left-part");
     let label = document.createElement("label");
@@ -221,12 +221,16 @@
     priorityIcon.setAttribute("id", `icon-${id}`);
     innerDiv.append(checkbox);
     innerDiv.append(label);
-    div.append(innerDiv);
-    div.append(priorityIcon);
+    li.append(innerDiv);
+    li.append(priorityIcon);
     if (listId) {
-      document.querySelector(`#content-${listId}`).append(div);
+      let ul = document.querySelector(`#content-${listId}`).lastChild;
+      ul.append(li);
+      document.querySelector(`#content-${listId}`).append(ul);
     } else {
-      document.querySelector(".activeContent").append(div);
+      let ul = document.querySelector(".activeContent").lastChild;
+      ul.append(li);
+      document.querySelector(".activeContent").append(ul);
     }
     checkbox.addEventListener("change", function() {
       toggleTaskDone(task);
@@ -253,7 +257,10 @@
     let listTitle = document.createElement("h1");
     listTitle.setAttribute("class", "title");
     listTitle.innerHTML = list.listTitle;
+    let ul = document.createElement("ul");
+    ul.setAttribute("class", "tasks-list");
     content.append(listTitle);
+    content.append(ul);
     document.querySelector(".list-page").append(content);
     button.addEventListener("click", () => openList(`content-${list.listId}`, list.listId));
     document.querySelector(".all-lists").append(button);

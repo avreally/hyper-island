@@ -131,8 +131,12 @@ const checkIsImportant = (task) => {
 
 const appendTaskToDOM = (task, listId) => {
   let id = task.taskId;
-  let div = document.createElement("div");
-  div.classList.add("todo-item");
+  // let div = document.createElement("div");
+  let li = document.createElement("li");
+
+  li.classList.add("todo-item");
+
+  // div.classList.add("todo-item");
   // console.log("that is div", div);
 
   let innerDiv = document.createElement("div");
@@ -154,8 +158,12 @@ const appendTaskToDOM = (task, listId) => {
 
   innerDiv.append(checkbox);
   innerDiv.append(label);
-  div.append(innerDiv);
-  div.append(priorityIcon);
+
+  li.append(innerDiv);
+  li.append(priorityIcon);
+
+  // div.append(innerDiv);
+  // div.append(priorityIcon);
 
   //new - not working
   // let currentList = document.querySelector(".active");
@@ -179,9 +187,14 @@ const appendTaskToDOM = (task, listId) => {
   //=====
 
   if (listId) {
-    document.querySelector(`#content-${listId}`).append(div);
+    let ul = document.querySelector(`#content-${listId}`).lastChild;
+    ul.append(li);
+    document.querySelector(`#content-${listId}`).append(ul);
   } else {
-    document.querySelector(".activeContent").append(div);
+    //Wasn't working because when I create a new task there is no list id
+    let ul = document.querySelector(".activeContent").lastChild;
+    ul.append(li);
+    document.querySelector(".activeContent").append(ul);
   }
 
   checkbox.addEventListener("change", function () {
@@ -227,11 +240,17 @@ const appendListToDOM = (list) => {
   listTitle.setAttribute("class", "title");
   listTitle.innerHTML = list.listTitle;
 
+  //Adding ul for tasks to store
+  let ul = document.createElement("ul");
+  ul.setAttribute("class", "tasks-list");
+  // ul.setAttribute("id", `ul-${list.listId}`);
+
   //Trying to remove it
   // let tasksContainer = document.createElement("div");
   // tasksContainer.setAttribute("class", `${list.listId}-container`);
 
   content.append(listTitle);
+  content.append(ul);
   // content.append(tasksContainer);
 
   document.querySelector(".list-page").append(content);
