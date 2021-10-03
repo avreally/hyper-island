@@ -17,22 +17,22 @@ body {
   display: flex;
   flex-direction: column;
   flex-basis: 70%;
-  justify-content: space-between;
 }
 .left-side-bar {
-  background-color: #e9ecef;
+  background-color: #f7f7f7;
   display: flex;
   flex-direction: column;
   flex-basis: 30%;
-  justify-content: space-between;
+  border-right: 1px solid #c7c7c7;
 }
 .all-lists {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  padding: 30px 0 0 40px;
 }
 .list {
-  padding: 10px 5px;
+  padding: 10px 20px;
   background-color: inherit;
   border: none;
   text-align: left;
@@ -43,9 +43,10 @@ body {
   background-color: #ddd;
 }
 .all-lists button.active {
-  background-color: #f2f4f6;
+  background-color: #fff;
 }
 .list-page {
+  padding: 30px 40px 0;
 }
 .title {
   padding: 20px 0;
@@ -53,16 +54,22 @@ body {
   font-weight: 600;
   margin: 0px;
 }
-.todo-item {
+.task {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   padding: 10px 0;
   font-weight: 400;
 }
-.task-checkbox:checked + label {
+.task__main-part__checkbox {
+  margin: 0;
+}
+.task__main-part__checkbox:checked + label {
   color: #c4c4c4;
   text-decoration: line-through;
+}
+.task__main-part__label {
+  padding-left: 15px;
 }
 .priority-icon {
   appearance: none;
@@ -79,15 +86,24 @@ body {
 .add-list-form {
   display: flex;
   flex-direction: row;
+  padding: 10px;
+}
+.add-list-form {
+  padding: 20px 40px 20px 60px;
+}
+.add-task-form {
+  padding: 20px 40px;
 }
 .add-task-input,
 .add-list-input {
-  margin-right: 5px;
+  margin-right: 10px;
   flex: 1;
+  padding: 10px;
 }
 .add-list-button,
 .add-task-button {
   flex: initial;
+  padding: 10px 15px;
 }
 .tasks-list {
   margin-block-start: 0px;

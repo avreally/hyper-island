@@ -96,19 +96,20 @@ const checkIsImportant = (task) => {
 const appendTaskToDOM = (task, listId) => {
   let id = task.taskId;
   let li = document.createElement("li");
-  li.classList.add("todo-item");
+  li.classList.add("task");
 
   let innerDiv = document.createElement("div");
-  innerDiv.classList.add("todo-item-left-part");
+  innerDiv.classList.add("task__main-part");
 
   let label = document.createElement("label");
   label.textContent = task.title;
   label.setAttribute("for", id);
+  label.setAttribute("class", "task__main-part__label");
 
   let checkbox = document.createElement("input");
   checkbox.setAttribute("type", "checkbox");
   checkbox.setAttribute("id", id);
-  checkbox.setAttribute("class", "task-checkbox");
+  checkbox.setAttribute("class", "task__main-part__checkbox");
 
   let priorityIcon = document.createElement("button");
   priorityIcon.innerHTML = "☆";
