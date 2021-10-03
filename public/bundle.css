@@ -3,18 +3,28 @@
   font-family: "Montserrat", sans-serif;
   font-size: 16px;
 }
+html,
+body {
+  height: 100%;
+}
 .container {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  height: 100%;
 }
 .main-column {
   display: flex;
   flex-direction: column;
-  flex-basis: 30%;
+  flex-basis: 70%;
+  justify-content: space-between;
 }
 .left-side-bar {
   background-color: #e9ecef;
+  display: flex;
+  flex-direction: column;
+  flex-basis: 30%;
+  justify-content: space-between;
 }
 .all-lists {
   display: flex;
@@ -36,7 +46,6 @@
   background-color: #f2f4f6;
 }
 .list-page {
-  padding-left: 20px;
 }
 .title {
   padding: 20px 0;
@@ -74,6 +83,11 @@
 .add-task-input,
 .add-list-input {
   margin-right: 5px;
+  flex: 1;
+}
+.add-list-button,
+.add-task-button {
+  flex: initial;
 }
 .tasks-list {
   margin-block-start: 0px;
