@@ -18,7 +18,7 @@ body {
   flex-direction: column;
   flex-basis: 70%;
 }
-.left-side-bar {
+.left-sidebar {
   background-color: #f7f7f7;
   display: flex;
   flex-direction: column;
@@ -48,7 +48,7 @@ body {
 .list-page {
   padding: 30px 40px 0;
 }
-.title {
+.list-content__title {
   padding: 20px 0;
   font-size: 1.3em;
   font-weight: 600;
@@ -71,14 +71,14 @@ body {
 .task__main-part__label {
   padding-left: 15px;
 }
-.priority-icon {
+.task__priority-icon {
   appearance: none;
   margin: 0;
   padding: 0;
   border-style: none;
   background-color: transparent;
 }
-.priority-icon-important {
+.task__priority-icon-important {
   color: #c4c4c4;
   text-decoration: line-through;
 }
@@ -94,14 +94,14 @@ body {
 .add-task-form {
   padding: 20px 40px;
 }
-.add-task-input,
-.add-list-input {
+.add-task-form__input,
+.add-list-form__input {
   margin-right: 10px;
   flex: 1;
   padding: 10px;
 }
-.add-list-button,
-.add-task-button {
+.add-list-form__button,
+.add-task-form__button {
   flex: initial;
   padding: 10px 15px;
 }

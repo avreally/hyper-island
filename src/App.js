@@ -3,9 +3,9 @@ import { v4 as uuidv4 } from "uuid";
 import "./styles/style.css";
 
 const form = document.querySelector(".add-task-form");
-const input = document.querySelector(".add-task-input");
+const input = document.querySelector(".add-task-form__input");
 const listForm = document.querySelector(".add-list-form");
-const listInput = document.querySelector(".add-list-input");
+const listInput = document.querySelector(".add-list-form__input");
 
 // Array of lists
 let listOfLists = localStorage.getItem("lists")
@@ -59,9 +59,9 @@ const checkIsDone = (task) => {
 
   if (task.isDone) {
     checkbox.setAttribute("checked", "");
-    icon.classList.add("priority-icon-important");
+    icon.classList.add("task__priority-icon-important");
   } else {
-    icon.classList.remove("priority-icon-important");
+    icon.classList.remove("task__priority-icon-important");
   }
 };
 
@@ -113,7 +113,7 @@ const appendTaskToDOM = (task, listId) => {
 
   let priorityIcon = document.createElement("button");
   priorityIcon.innerHTML = "☆";
-  priorityIcon.setAttribute("class", "priority-icon");
+  priorityIcon.setAttribute("class", "task__priority-icon");
   priorityIcon.setAttribute("id", `icon-${id}`);
 
   innerDiv.append(checkbox);
@@ -162,7 +162,7 @@ const appendListToDOM = (list) => {
   content.style.display = "none";
 
   let listTitle = document.createElement("h1");
-  listTitle.setAttribute("class", "title");
+  listTitle.setAttribute("class", "list-content__title");
   listTitle.innerHTML = list.listTitle;
 
   //Adding ul for tasks to store

@@ -146,9 +146,9 @@
 
   // src/App.js
   var form = document.querySelector(".add-task-form");
-  var input = document.querySelector(".add-task-input");
+  var input = document.querySelector(".add-task-form__input");
   var listForm = document.querySelector(".add-list-form");
-  var listInput = document.querySelector(".add-list-input");
+  var listInput = document.querySelector(".add-list-form__input");
   var listOfLists = localStorage.getItem("lists") ? JSON.parse(localStorage.getItem("lists")) : [
     { listTitle: "Today", listId: "101", listTasks: [] },
     { listTitle: "Important", listId: "102", listTasks: [] }
@@ -180,9 +180,9 @@
     let icon = document.getElementById(`icon-${id}`);
     if (task.isDone) {
       checkbox.setAttribute("checked", "");
-      icon.classList.add("priority-icon-important");
+      icon.classList.add("task__priority-icon-important");
     } else {
-      icon.classList.remove("priority-icon-important");
+      icon.classList.remove("task__priority-icon-important");
     }
   };
   var toggleTaskImportance = (task) => {
@@ -218,7 +218,7 @@
     checkbox.setAttribute("class", "task__main-part__checkbox");
     let priorityIcon = document.createElement("button");
     priorityIcon.innerHTML = "\u2606";
-    priorityIcon.setAttribute("class", "priority-icon");
+    priorityIcon.setAttribute("class", "task__priority-icon");
     priorityIcon.setAttribute("id", `icon-${id}`);
     innerDiv.append(checkbox);
     innerDiv.append(label);
@@ -256,7 +256,7 @@
     content.setAttribute("id", `content-${list.listId}`);
     content.style.display = "none";
     let listTitle = document.createElement("h1");
-    listTitle.setAttribute("class", "title");
+    listTitle.setAttribute("class", "list-content__title");
     listTitle.innerHTML = list.listTitle;
     let ul = document.createElement("ul");
     ul.setAttribute("class", "tasks-list");
