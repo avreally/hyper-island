@@ -25,9 +25,16 @@ const listFactory = (listTitle) => {
 };
 //------
 
-const taskFactory = (title) => {
+const taskFactory = (title, listId) => {
   let isDone = false;
-  let isImportant = false;
+  let isImportant;
+
+  if (listId === "102") {
+    isImportant = true;
+  } else {
+    isImportant = false;
+  }
+
   const creationDate = formatISO(Date.now());
   const taskId = uuidv4();
   return { title, isDone, isImportant, creationDate, taskId };
@@ -226,10 +233,10 @@ const addTask = (event) => {
   event.preventDefault();
   let title = input.value;
 
-  let newTask = taskFactory(title);
-
   let currentList = document.querySelector(".active");
   let id = currentList.id;
+
+  let newTask = taskFactory(title, id);
 
   //TODO Finding index (create separate function bc I use it twice?)
   let index = listOfLists.findIndex((list) => list.listId === id);

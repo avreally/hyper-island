@@ -159,9 +159,14 @@
     let listTasks = [];
     return { listTitle, listId, listTasks };
   };
-  var taskFactory = (title) => {
+  var taskFactory = (title, listId) => {
     let isDone = false;
-    let isImportant = false;
+    let isImportant;
+    if (listId === "102") {
+      isImportant = true;
+    } else {
+      isImportant = false;
+    }
     const creationDate = formatISO(Date.now());
     const taskId = v4_default();
     return { title, isDone, isImportant, creationDate, taskId };
@@ -290,9 +295,9 @@
   var addTask = (event) => {
     event.preventDefault();
     let title = input.value;
-    let newTask = taskFactory(title);
     let currentList = document.querySelector(".active");
     let id = currentList.id;
+    let newTask = taskFactory(title, id);
     let index = listOfLists.findIndex((list) => list.listId === id);
     listOfLists[index].listTasks.push(newTask);
     form.reset();
