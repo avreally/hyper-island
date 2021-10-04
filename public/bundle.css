@@ -44,6 +44,7 @@ body {
 }
 .all-lists button.active {
   background-color: #fff;
+  font-weight: 600;
 }
 .list-page {
   padding: 30px 40px 0;

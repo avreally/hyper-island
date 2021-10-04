@@ -55,6 +55,7 @@ body {
 /*Selected list class*/
 .all-lists button.active {
   background-color: #fff;
+  font-weight: 600;
 }
 
 /*List page styles*/
