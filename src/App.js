@@ -3,20 +3,9 @@ import { v4 as uuidv4 } from "uuid";
 import "./styles/style.css";
 
 const form = document.querySelector(".add-task-form");
-const input = document.querySelector(".add-task-input");
-// const todayContainer = document.querySelector(".today-container");
-// const importantContainer = document.querySelector(".important-container");
-
+const input = document.querySelector(".add-task-form__input");
 const listForm = document.querySelector(".add-list-form");
-const listInput = document.querySelector(".add-list-input");
-
-// // Array of lists
-// let listOfLists = [
-//   { listTitle: "Today", listId: "101", listTasks: [] },
-//   { listTitle: "Important", listId: "102", listTasks: [] },
-// ];
-//
-// localStorage.setItem("lists", JSON.stringify(listOfLists));
+const listInput = document.querySelector(".add-list-form__input");
 
 // Array of lists
 let listOfLists = localStorage.getItem("lists")
@@ -44,27 +33,15 @@ const taskFactory = (title) => {
   return { title, isDone, isImportant, creationDate, taskId };
 };
 
-// Removed this because I set listOfLists to Local storage at 21 line
-// let tasksList = localStorage.getItem("tasks")
-//   ? JSON.parse(localStorage.getItem("tasks"))
-//   : [];
-
-//TODO find index function (replace taskID and other to id)
-
-// const findIndex = (item, array) => {
-//   let id = item.taskId;
-//   let index = array.findIndex((task) => task.taskId === id);
-//   return index;
-// };
+//TODO find index function (replace taskID and other to id)?
 
 const toggleTaskDone = (task) => {
-  //Finding a list in array of lists and it's index first
+  // Finding a list in array of lists and it's index first
   let currentList = document.querySelector(".active");
   let listId = currentList.id;
   let listIndex = listOfLists.findIndex((list) => list.listId === listId);
-  // listOfLists[listIndex];
 
-  //  then finding a task there
+  // then finding a task there
   let id = task.taskId;
 
   //TODO Finding index (create separate function bc I use it 3 times?)
@@ -73,10 +50,6 @@ const toggleTaskDone = (task) => {
   );
   listOfLists[listIndex].listTasks[index].isDone =
     !listOfLists[listIndex].listTasks[index].isDone;
-
-  // //  How it was
-  //   let index = tasksList.findIndex((task) => task.taskId === id);
-  //   tasksList[index].isDone = !tasksList[index].isDone;
 };
 
 const checkIsDone = (task) => {
@@ -86,26 +59,17 @@ const checkIsDone = (task) => {
 
   if (task.isDone) {
     checkbox.setAttribute("checked", "");
-    icon.classList.add("priority-icon-important");
+    icon.classList.add("task__priority-icon-important");
   } else {
-    icon.classList.remove("priority-icon-important");
+    icon.classList.remove("task__priority-icon-important");
   }
 };
 
 const toggleTaskImportance = (task) => {
-  // //============ How it was
-  // let id = task.taskId;
-  //
-  // //TODO Finding index (create separate function bc I use it twice?)
-  // let index = tasksList.findIndex((task) => task.taskId === id);
-  // tasksList[index].isImportant = !tasksList[index].isImportant;
-  // //============
-
   //Finding a list in array of lists first
   let currentList = document.querySelector(".active");
   let listId = currentList.id;
   let listIndex = listOfLists.findIndex((list) => list.listId === listId);
-  // listOfLists[listIndex];
 
   //  then finding a task there
   let id = task.taskId;
@@ -131,82 +95,56 @@ const checkIsImportant = (task) => {
 
 const appendTaskToDOM = (task, listId) => {
   let id = task.taskId;
-  let div = document.createElement("div");
-  div.classList.add("todo-item");
-  // console.log("that is div", div);
+  let li = document.createElement("li");
+  li.classList.add("task");
 
   let innerDiv = document.createElement("div");
-  innerDiv.classList.add("todo-item-left-part");
+  innerDiv.classList.add("task__main-part");
 
   let label = document.createElement("label");
   label.textContent = task.title;
   label.setAttribute("for", id);
+  label.setAttribute("class", "task__main-part__label");
 
   let checkbox = document.createElement("input");
   checkbox.setAttribute("type", "checkbox");
   checkbox.setAttribute("id", id);
-  checkbox.setAttribute("class", "task-checkbox");
+  checkbox.setAttribute("class", "task__main-part__checkbox");
 
   let priorityIcon = document.createElement("button");
   priorityIcon.innerHTML = "☆";
-  priorityIcon.setAttribute("class", "priority-icon");
+  priorityIcon.setAttribute("class", "task__priority-icon");
   priorityIcon.setAttribute("id", `icon-${id}`);
 
   innerDiv.append(checkbox);
   innerDiv.append(label);
-  div.append(innerDiv);
-  div.append(priorityIcon);
 
-  //new - not working
-  // let currentList = document.querySelector(".active");
-  // console.log("current list", currentList);
-  //
-  // let listContentArray = document.getElementsByClassName("list-content");
-  // console.log("array", listContentArray);
-  // for (let i = 0; i < listContentArray.length; i++) {
-  //   if (listContentArray[i].style.display === "block") {
-  //     document.querySelector("h1").append(div);
-  //     console.log("block");
-  //   } else {
-  //     console.log("not");
-  //   }
-  // }
-  // let listId = currentList.id;
-  // let container = document.querySelector(`.${listId}-container`);
-  // console.log("this is container", container);
-  // container.append(div);
-
-  //=====
+  li.append(innerDiv);
+  li.append(priorityIcon);
 
   if (listId) {
-    document.querySelector(`#content-${listId}`).append(div);
+    let ul = document.querySelector(`#content-${listId}`).lastChild;
+    ul.append(li);
+    document.querySelector(`#content-${listId}`).append(ul);
   } else {
-    document.querySelector(".activeContent").append(div);
+    let ul = document.querySelector(".activeContent").lastChild;
+    ul.append(li);
+    document.querySelector(".activeContent").append(ul);
   }
 
   checkbox.addEventListener("change", function () {
     toggleTaskDone(task);
     checkIsDone(task);
 
-    // localStorage.setItem("tasks", JSON.stringify(tasksList));
     localStorage.setItem("lists", JSON.stringify(listOfLists));
   });
 
   priorityIcon.addEventListener("click", function () {
     toggleTaskImportance(task);
     checkIsImportant(task);
-    // localStorage.setItem("tasks", JSON.stringify(tasksList));
     localStorage.setItem("lists", JSON.stringify(listOfLists));
   });
 
-  //Removed bc now tasks are added to listOfLists array
-  // if (!task.isImportant) {
-  //   todayContainer.append(div);
-  // } else {
-  //   importantContainer.append(div);
-  // }
-
-  //TODO Check if I need these two
   checkIsDone(task);
   checkIsImportant(task);
 };
@@ -224,15 +162,15 @@ const appendListToDOM = (list) => {
   content.style.display = "none";
 
   let listTitle = document.createElement("h1");
-  listTitle.setAttribute("class", "title");
+  listTitle.setAttribute("class", "list-content__title");
   listTitle.innerHTML = list.listTitle;
 
-  //Trying to remove it
-  // let tasksContainer = document.createElement("div");
-  // tasksContainer.setAttribute("class", `${list.listId}-container`);
+  //Adding ul for tasks to store
+  let ul = document.createElement("ul");
+  ul.setAttribute("class", "tasks-list");
 
   content.append(listTitle);
-  // content.append(tasksContainer);
+  content.append(ul);
 
   document.querySelector(".list-page").append(content);
 
@@ -276,14 +214,10 @@ listOfLists.forEach((list) => {
 });
 
 //To show Today list on page load
-// document.getElementById("101").click();
 openList("content-101", "101");
 
 listOfLists.forEach((list) => {
   list.listTasks.forEach((task) => {
-    // console.log("adding task");
-
-    // console.log("task is", task);
     appendTaskToDOM(task, list.listId);
   });
 });
@@ -302,13 +236,10 @@ const addTask = (event) => {
   listOfLists[index].listTasks.push(newTask);
   //------
 
-  // tasksList.push(newTask);
-
   form.reset();
 
   localStorage.setItem("lists", JSON.stringify(listOfLists));
 
-  // localStorage.setItem("tasks", JSON.stringify(tasksList));
   appendTaskToDOM(newTask);
 };
 
@@ -326,16 +257,6 @@ const addList = (event) => {
   appendListToDOM(newList);
 };
 //------
-
-// // Tabs of lists on the sidebar
-// const listToday = document.getElementById("101");
-// // console.log("list today", listToday);
-// listToday.addEventListener("click", () => openList("today-content", "101"));
-//
-// const listImportant = document.getElementById("102");
-// listImportant.addEventListener("click", () =>
-//   openList("important-content", "102")
-// );
 
 // Event listener to add new task
 form.addEventListener("submit", addTask);

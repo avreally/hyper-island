@@ -146,9 +146,9 @@
 
   // src/App.js
   var form = document.querySelector(".add-task-form");
-  var input = document.querySelector(".add-task-input");
+  var input = document.querySelector(".add-task-form__input");
   var listForm = document.querySelector(".add-list-form");
-  var listInput = document.querySelector(".add-list-input");
+  var listInput = document.querySelector(".add-list-form__input");
   var listOfLists = localStorage.getItem("lists") ? JSON.parse(localStorage.getItem("lists")) : [
     { listTitle: "Today", listId: "101", listTasks: [] },
     { listTitle: "Important", listId: "102", listTasks: [] }
@@ -180,9 +180,9 @@
     let icon = document.getElementById(`icon-${id}`);
     if (task.isDone) {
       checkbox.setAttribute("checked", "");
-      icon.classList.add("priority-icon-important");
+      icon.classList.add("task__priority-icon-important");
     } else {
-      icon.classList.remove("priority-icon-important");
+      icon.classList.remove("task__priority-icon-important");
     }
   };
   var toggleTaskImportance = (task) => {
@@ -204,29 +204,34 @@
   };
   var appendTaskToDOM = (task, listId) => {
     let id = task.taskId;
-    let div = document.createElement("div");
-    div.classList.add("todo-item");
+    let li = document.createElement("li");
+    li.classList.add("task");
     let innerDiv = document.createElement("div");
-    innerDiv.classList.add("todo-item-left-part");
+    innerDiv.classList.add("task__main-part");
     let label = document.createElement("label");
     label.textContent = task.title;
     label.setAttribute("for", id);
+    label.setAttribute("class", "task__main-part__label");
     let checkbox = document.createElement("input");
     checkbox.setAttribute("type", "checkbox");
     checkbox.setAttribute("id", id);
-    checkbox.setAttribute("class", "task-checkbox");
+    checkbox.setAttribute("class", "task__main-part__checkbox");
     let priorityIcon = document.createElement("button");
     priorityIcon.innerHTML = "\u2606";
-    priorityIcon.setAttribute("class", "priority-icon");
+    priorityIcon.setAttribute("class", "task__priority-icon");
     priorityIcon.setAttribute("id", `icon-${id}`);
     innerDiv.append(checkbox);
     innerDiv.append(label);
-    div.append(innerDiv);
-    div.append(priorityIcon);
+    li.append(innerDiv);
+    li.append(priorityIcon);
     if (listId) {
-      document.querySelector(`#content-${listId}`).append(div);
+      let ul = document.querySelector(`#content-${listId}`).lastChild;
+      ul.append(li);
+      document.querySelector(`#content-${listId}`).append(ul);
     } else {
-      document.querySelector(".activeContent").append(div);
+      let ul = document.querySelector(".activeContent").lastChild;
+      ul.append(li);
+      document.querySelector(".activeContent").append(ul);
     }
     checkbox.addEventListener("change", function() {
       toggleTaskDone(task);
@@ -251,9 +256,12 @@
     content.setAttribute("id", `content-${list.listId}`);
     content.style.display = "none";
     let listTitle = document.createElement("h1");
-    listTitle.setAttribute("class", "title");
+    listTitle.setAttribute("class", "list-content__title");
     listTitle.innerHTML = list.listTitle;
+    let ul = document.createElement("ul");
+    ul.setAttribute("class", "tasks-list");
     content.append(listTitle);
+    content.append(ul);
     document.querySelector(".list-page").append(content);
     button.addEventListener("click", () => openList(`content-${list.listId}`, list.listId));
     document.querySelector(".all-lists").append(button);
