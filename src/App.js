@@ -190,6 +190,38 @@ const appendListToDOM = (list) => {
 //------
 
 const openList = (contentId, listId) => {
+  let tasksListElements = document.getElementsByClassName("tasks-list");
+  for (const tasksListElement of tasksListElements) {
+    tasksListElement.innerHTML = "";
+  }
+
+  // Check importance of tasks and push them to separate array
+  if (listId === "102") {
+    let importantTasks = [];
+
+    listOfLists.forEach((list) =>
+      list.listTasks.forEach((task) => {
+        if (task.isImportant === true) {
+          importantTasks.push(task);
+        }
+      })
+    );
+
+    importantTasks.forEach((task) => {
+      appendTaskToDOM(task, listId);
+    });
+
+    form.style.display = "none";
+  } else {
+    const foundList = listOfLists.find((list) => {
+      return list.listId === listId;
+    });
+    foundList.listTasks.forEach((task) => {
+      appendTaskToDOM(task, listId);
+    });
+    form.style.display = "flex";
+  }
+
   //listContent and lists is an HTMLCollection and HTMLCollections do not have the forEach() method.
   //HTMLCollection can be used with the spread operator.
   let listContent = document.getElementsByClassName("list-content");
@@ -204,17 +236,12 @@ const openList = (contentId, listId) => {
     list.classList.remove("active");
   });
 
-  document.getElementById(contentId).style.display = "block";
+  document.getElementById(contentId).style.display = "flex";
   document.getElementById(contentId).classList.add("activeContent");
 
   let currentList = document.getElementById(listId);
   currentList.classList.add("active");
 };
-
-//TODO change
-// tasksList.forEach((task) => {
-//   appendTaskToDOM(task);
-// });
 
 listOfLists.forEach((list) => {
   appendListToDOM(list);
@@ -223,11 +250,11 @@ listOfLists.forEach((list) => {
 //To show Today list on page load
 openList("content-101", "101");
 
-listOfLists.forEach((list) => {
-  list.listTasks.forEach((task) => {
-    appendTaskToDOM(task, list.listId);
-  });
-});
+// listOfLists.forEach((list) => {
+//   list.listTasks.forEach((task) => {
+//     appendTaskToDOM(task, list.listId);
+//   });
+// });
 
 const addTask = (event) => {
   event.preventDefault();

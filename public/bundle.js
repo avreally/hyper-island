@@ -272,13 +272,37 @@
     document.querySelector(".all-lists").append(button);
   };
   var openList = (contentId, listId) => {
+    let tasksListElements = document.getElementsByClassName("tasks-list");
+    for (const tasksListElement of tasksListElements) {
+      tasksListElement.innerHTML = "";
+    }
+    if (listId === "102") {
+      let importantTasks = [];
+      listOfLists.forEach((list) => list.listTasks.forEach((task) => {
+        if (task.isImportant === true) {
+          importantTasks.push(task);
+        }
+      }));
+      importantTasks.forEach((task) => {
+        appendTaskToDOM(task, listId);
+      });
+      form.style.display = "none";
+    } else {
+      const foundList = listOfLists.find((list) => {
+        return list.listId === listId;
+      });
+      foundList.listTasks.forEach((task) => {
+        appendTaskToDOM(task, listId);
+      });
+      form.style.display = "flex";
+    }
     let listContent = document.getElementsByClassName("list-content");
     [...listContent].forEach((list) => (list.style.display = "none", list.classList.remove("activeContent")));
     let lists = document.getElementsByClassName("list");
     [...lists].forEach((list) => {
       list.classList.remove("active");
     });
-    document.getElementById(contentId).style.display = "block";
+    document.getElementById(contentId).style.display = "flex";
     document.getElementById(contentId).classList.add("activeContent");
     let currentList = document.getElementById(listId);
     currentList.classList.add("active");
@@ -287,11 +311,6 @@
     appendListToDOM(list);
   });
   openList("content-101", "101");
-  listOfLists.forEach((list) => {
-    list.listTasks.forEach((task) => {
-      appendTaskToDOM(task, list.listId);
-    });
-  });
   var addTask = (event) => {
     event.preventDefault();
     let title = input.value;
