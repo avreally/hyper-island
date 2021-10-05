@@ -186,12 +186,19 @@
     }
   };
   var toggleTaskImportance = (task) => {
-    let currentList = document.querySelector(".active");
-    let listId = currentList.id;
-    let listIndex = listOfLists.findIndex((list) => list.listId === listId);
     const id = task.taskId;
-    let index = listOfLists[listIndex].listTasks.findIndex((task2) => task2.taskId === id);
-    listOfLists[listIndex].listTasks[index].isImportant = !listOfLists[listIndex].listTasks[index].isImportant;
+    let listId;
+    let foundTask;
+    listOfLists.forEach((list) => {
+      list.listTasks.forEach((task2) => {
+        if (task2.taskId === id) {
+          listId = list.listId;
+          foundTask = task2;
+        }
+      });
+    });
+    console.log("found task", foundTask);
+    foundTask.isImportant = !foundTask.isImportant;
   };
   var checkIsImportant = (task) => {
     let id = `icon-${task.taskId}`;
@@ -257,11 +264,11 @@
       toggleTaskImportance(task);
       checkIsImportant(task);
       localStorage.setItem("lists", JSON.stringify(listOfLists));
+      openList(`content-${listId}`, listId);
     });
     deleteButton.addEventListener("click", function() {
       deleteTask(task);
       localStorage.setItem("lists", JSON.stringify(listOfLists));
-      console.log("list id in delete button", listId);
       openList(`content-${listId}`, listId);
     });
     checkIsDone(task);
@@ -284,7 +291,10 @@
     content.append(listTitle);
     content.append(ul);
     document.querySelector(".list-page").append(content);
-    button.addEventListener("click", () => openList(`content-${list.listId}`, list.listId));
+    button.addEventListener("click", () => {
+      openList(`content-${list.listId}`, list.listId);
+      console.log("list id in opening tab/list", list.listId);
+    });
     document.querySelector(".all-lists").append(button);
   };
   var openList = (contentId, listId) => {
@@ -304,12 +314,9 @@
       });
       form.style.display = "none";
     } else {
-      console.log("list id is", listId);
       const foundList = listOfLists.find((list) => {
-        console.log("list is", list);
         return list.listId === listId;
       });
-      console.log("found list", foundList);
       foundList.listTasks.forEach((task) => {
         appendTaskToDOM(task, listId);
       });

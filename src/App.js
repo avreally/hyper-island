@@ -74,29 +74,61 @@ const checkIsDone = (task) => {
 
 const toggleTaskImportance = (task) => {
   // Finding a list in array of lists first
-  let currentList = document.querySelector(".active");
-  let listId = currentList.id;
-  let listIndex = listOfLists.findIndex((list) => list.listId === listId);
+  // let currentList = document.querySelector(".active");
+  // let listId = currentList.id;
+  // let listIndex = listOfLists.findIndex((list) => list.listId === listId);
 
   // then finding a task there
-  const id = task.taskId;
+  // const id = task.taskId;
+  // console.log("id", id);
 
   // TODO Finding index (create separate function bc I use it 3 times?)
-  let index = listOfLists[listIndex].listTasks.findIndex(
-    (task) => task.taskId === id
-  );
-  listOfLists[listIndex].listTasks[index].isImportant =
-    !listOfLists[listIndex].listTasks[index].isImportant;
+  // let index = listOfLists[listIndex].listTasks.findIndex(
+  //   (task) => task.taskId === id
+  // );
+  // console.log("index", index);
+  //
+  // console.log("target task", listOfLists[listIndex].listTasks[index]);
+  // listOfLists[listIndex].listTasks[index].isImportant =
+  //   !listOfLists[listIndex].listTasks[index].isImportant;
 
-  //  New
+  // New 2
+
+  // const foundList = listOfLists.find((list) => {
+  //   return list.listId === listId;
+  // });
+  // console.log("found list", foundList);
+  // console.log("id", id);
+  const id = task.taskId;
+
+  let listId;
+  let foundTask;
+
+  listOfLists.forEach((list) => {
+    list.listTasks.forEach((task) => {
+      if (task.taskId === id) {
+        listId = list.listId;
+        foundTask = task;
+      }
+    });
+  });
+
+  console.log("found task", foundTask);
+
+  foundTask.isImportant = !foundTask.isImportant;
+
+  // const foundTask = foundList.listTasks.find((task) => {
+  //   return task.taskId === id;
+  // });
+  //=====
+
+  //  New 1
   // const foundTask = listOfLists.forEach((list) => {
   //   list.listTasks.find((task) => {
   //     return task.taskId === id;
   //   });
   // });
-
   // console.log(foundTask)
-
   //  =====
 };
 
@@ -181,16 +213,18 @@ const appendTaskToDOM = (task, listId) => {
   });
 
   priorityIcon.addEventListener("click", function () {
+    // console.log("list id in priority", listId);
     toggleTaskImportance(task);
     checkIsImportant(task);
     localStorage.setItem("lists", JSON.stringify(listOfLists));
+    openList(`content-${listId}`, listId);
   });
 
   deleteButton.addEventListener("click", function () {
     deleteTask(task);
     localStorage.setItem("lists", JSON.stringify(listOfLists));
     // listOfLists = JSON.parse(localStorage.getItem("lists"));
-    console.log("list id in delete button", listId);
+    // console.log("list id in delete button", listId);
     openList(`content-${listId}`, listId);
   });
 
@@ -223,9 +257,10 @@ const appendListToDOM = (list) => {
 
   document.querySelector(".list-page").append(content);
 
-  button.addEventListener("click", () =>
-    openList(`content-${list.listId}`, list.listId)
-  );
+  button.addEventListener("click", () => {
+    openList(`content-${list.listId}`, list.listId);
+    console.log("list id in opening tab/list", list.listId);
+  });
 
   document.querySelector(".all-lists").append(button);
 };
@@ -255,13 +290,13 @@ const openList = (contentId, listId) => {
 
     form.style.display = "none";
   } else {
-    console.log("list id is", listId);
+    // console.log("list id is", listId);
 
     const foundList = listOfLists.find((list) => {
-      console.log("list is", list);
+      // console.log("list is", list);
       return list.listId === listId;
     });
-    console.log("found list", foundList);
+    // console.log("found list", foundList);
     foundList.listTasks.forEach((task) => {
       appendTaskToDOM(task, listId);
     });
