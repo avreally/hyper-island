@@ -40,23 +40,40 @@ const taskFactory = (title) => {
   return { title, isDone, isImportant, creationDate, taskId };
 };
 
-// TODO find index function (replace taskID and other to id)?
-
 const toggleTaskDone = (task) => {
-  // Finding a list in array of lists and it's index first
-  let currentList = document.querySelector(".active");
-  let listId = currentList.id;
-  let listIndex = listOfLists.findIndex((list) => list.listId === listId);
+  // // Finding a list in array of lists and it's index first
+  // let currentList = document.querySelector(".active");
+  // let listId = currentList.id;
+  // let listIndex = listOfLists.findIndex((list) => list.listId === listId);
+  //
+  // // then finding a task there
+  // let id = task.taskId;
+  //
+  // // TODO Finding index (create separate function bc I use it 3 times?)
+  // let index = listOfLists[listIndex].listTasks.findIndex(
+  //   (task) => task.taskId === id
+  // );
+  // listOfLists[listIndex].listTasks[index].isDone =
+  //   !listOfLists[listIndex].listTasks[index].isDone;
 
-  // then finding a task there
-  let id = task.taskId;
+  //  ======
 
-  // TODO Finding index (create separate function bc I use it 3 times?)
-  let index = listOfLists[listIndex].listTasks.findIndex(
-    (task) => task.taskId === id
-  );
-  listOfLists[listIndex].listTasks[index].isDone =
-    !listOfLists[listIndex].listTasks[index].isDone;
+  const id = task.taskId;
+
+  let listId;
+  let foundTask;
+
+  listOfLists.forEach((list) => {
+    list.listTasks.forEach((task) => {
+      if (task.taskId === id) {
+        listId = list.listId;
+        foundTask = task;
+      }
+    });
+  });
+
+  console.log("found task", foundTask);
+  foundTask.isDone = !foundTask.isDone;
 };
 
 const checkIsDone = (task) => {
@@ -113,7 +130,7 @@ const toggleTaskImportance = (task) => {
     });
   });
 
-  console.log("found task", foundTask);
+  // console.log("found task", foundTask);
 
   foundTask.isImportant = !foundTask.isImportant;
 
@@ -210,6 +227,7 @@ const appendTaskToDOM = (task, listId) => {
     checkIsDone(task);
 
     localStorage.setItem("lists", JSON.stringify(listOfLists));
+    openList(`content-${listId}`, listId);
   });
 
   priorityIcon.addEventListener("click", function () {
@@ -259,7 +277,7 @@ const appendListToDOM = (list) => {
 
   button.addEventListener("click", () => {
     openList(`content-${list.listId}`, list.listId);
-    console.log("list id in opening tab/list", list.listId);
+    // console.log("list id in opening tab/list", list.listId);
   });
 
   document.querySelector(".all-lists").append(button);

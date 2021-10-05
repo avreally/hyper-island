@@ -167,12 +167,19 @@
     return { title, isDone, isImportant, creationDate, taskId };
   };
   var toggleTaskDone = (task) => {
-    let currentList = document.querySelector(".active");
-    let listId = currentList.id;
-    let listIndex = listOfLists.findIndex((list) => list.listId === listId);
-    let id = task.taskId;
-    let index = listOfLists[listIndex].listTasks.findIndex((task2) => task2.taskId === id);
-    listOfLists[listIndex].listTasks[index].isDone = !listOfLists[listIndex].listTasks[index].isDone;
+    const id = task.taskId;
+    let listId;
+    let foundTask;
+    listOfLists.forEach((list) => {
+      list.listTasks.forEach((task2) => {
+        if (task2.taskId === id) {
+          listId = list.listId;
+          foundTask = task2;
+        }
+      });
+    });
+    console.log("found task", foundTask);
+    foundTask.isDone = !foundTask.isDone;
   };
   var checkIsDone = (task) => {
     let id = task.taskId;
@@ -197,7 +204,6 @@
         }
       });
     });
-    console.log("found task", foundTask);
     foundTask.isImportant = !foundTask.isImportant;
   };
   var checkIsImportant = (task) => {
@@ -259,6 +265,7 @@
       toggleTaskDone(task);
       checkIsDone(task);
       localStorage.setItem("lists", JSON.stringify(listOfLists));
+      openList(`content-${listId}`, listId);
     });
     priorityIcon.addEventListener("click", function() {
       toggleTaskImportance(task);
@@ -293,7 +300,6 @@
     document.querySelector(".list-page").append(content);
     button.addEventListener("click", () => {
       openList(`content-${list.listId}`, list.listId);
-      console.log("list id in opening tab/list", list.listId);
     });
     document.querySelector(".all-lists").append(button);
   };
