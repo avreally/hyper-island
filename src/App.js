@@ -25,22 +25,22 @@ const listFactory = (listTitle) => {
 };
 //------
 
-const taskFactory = (title, listId) => {
+const taskFactory = (title) => {
   let isDone = false;
-  let isImportant;
+  let isImportant = false;
 
-  if (listId === "102") {
-    isImportant = true;
-  } else {
-    isImportant = false;
-  }
+  // if (listId === "102") {
+  //   isImportant = true;
+  // } else {
+  //   isImportant = false;
+  // }
 
   const creationDate = formatISO(Date.now());
   const taskId = uuidv4();
   return { title, isDone, isImportant, creationDate, taskId };
 };
 
-//TODO find index function (replace taskID and other to id)?
+// TODO find index function (replace taskID and other to id)?
 
 const toggleTaskDone = (task) => {
   // Finding a list in array of lists and it's index first
@@ -51,7 +51,7 @@ const toggleTaskDone = (task) => {
   // then finding a task there
   let id = task.taskId;
 
-  //TODO Finding index (create separate function bc I use it 3 times?)
+  // TODO Finding index (create separate function bc I use it 3 times?)
   let index = listOfLists[listIndex].listTasks.findIndex(
     (task) => task.taskId === id
   );
@@ -73,20 +73,31 @@ const checkIsDone = (task) => {
 };
 
 const toggleTaskImportance = (task) => {
-  //Finding a list in array of lists first
+  // Finding a list in array of lists first
   let currentList = document.querySelector(".active");
   let listId = currentList.id;
   let listIndex = listOfLists.findIndex((list) => list.listId === listId);
 
-  //  then finding a task there
-  let id = task.taskId;
+  // then finding a task there
+  const id = task.taskId;
 
-  //TODO Finding index (create separate function bc I use it 3 times?)
+  // TODO Finding index (create separate function bc I use it 3 times?)
   let index = listOfLists[listIndex].listTasks.findIndex(
     (task) => task.taskId === id
   );
   listOfLists[listIndex].listTasks[index].isImportant =
     !listOfLists[listIndex].listTasks[index].isImportant;
+
+  //  New
+  // const foundTask = listOfLists.forEach((list) => {
+  //   list.listTasks.find((task) => {
+  //     return task.taskId === id;
+  //   });
+  // });
+
+  // console.log(foundTask)
+
+  //  =====
 };
 
 const checkIsImportant = (task) => {
@@ -98,6 +109,16 @@ const checkIsImportant = (task) => {
   } else {
     icon.innerHTML = "☆";
   }
+};
+
+const deleteTask = (task) => {
+  const id = task.taskId;
+  listOfLists.forEach((list) => {
+    list.listTasks = list.listTasks.filter((task) => {
+      return task.taskId !== id;
+    });
+    // console.log("list tasks", list.listTasks);
+  });
 };
 
 const appendTaskToDOM = (task, listId) => {
@@ -118,16 +139,29 @@ const appendTaskToDOM = (task, listId) => {
   checkbox.setAttribute("id", id);
   checkbox.setAttribute("class", "task__main-part__checkbox");
 
+  let iconsDiv = document.createElement("div");
+  iconsDiv.setAttribute("class", "task__icons");
+
   let priorityIcon = document.createElement("button");
   priorityIcon.innerHTML = "☆";
   priorityIcon.setAttribute("class", "task__priority-icon");
   priorityIcon.setAttribute("id", `icon-${id}`);
 
+  let deleteButton = document.createElement("button");
+  deleteButton.innerHTML =
+    "<img src='../public/icons/trash-alt-regular.svg' height='18px' />";
+  deleteButton.setAttribute("class", "task__delete-button");
+
   innerDiv.append(checkbox);
   innerDiv.append(label);
 
+  iconsDiv.append(priorityIcon);
+  iconsDiv.append(deleteButton);
+
   li.append(innerDiv);
-  li.append(priorityIcon);
+  li.append(iconsDiv);
+  // li.append(priorityIcon);
+  // li.append(deleteButton);
 
   if (listId) {
     let ul = document.querySelector(`#content-${listId}`).lastChild;
@@ -150,6 +184,14 @@ const appendTaskToDOM = (task, listId) => {
     toggleTaskImportance(task);
     checkIsImportant(task);
     localStorage.setItem("lists", JSON.stringify(listOfLists));
+  });
+
+  deleteButton.addEventListener("click", function () {
+    deleteTask(task);
+    localStorage.setItem("lists", JSON.stringify(listOfLists));
+    // listOfLists = JSON.parse(localStorage.getItem("lists"));
+    console.log("list id in delete button", listId);
+    openList(`content-${listId}`, listId);
   });
 
   checkIsDone(task);
@@ -213,9 +255,13 @@ const openList = (contentId, listId) => {
 
     form.style.display = "none";
   } else {
+    console.log("list id is", listId);
+
     const foundList = listOfLists.find((list) => {
+      console.log("list is", list);
       return list.listId === listId;
     });
+    console.log("found list", foundList);
     foundList.listTasks.forEach((task) => {
       appendTaskToDOM(task, listId);
     });
@@ -274,7 +320,8 @@ const addTask = (event) => {
 
   localStorage.setItem("lists", JSON.stringify(listOfLists));
 
-  appendTaskToDOM(newTask);
+  // !!! Added ID below
+  appendTaskToDOM(newTask, id);
 };
 
 // Form to add list

@@ -159,14 +159,9 @@
     let listTasks = [];
     return { listTitle, listId, listTasks };
   };
-  var taskFactory = (title, listId) => {
+  var taskFactory = (title) => {
     let isDone = false;
-    let isImportant;
-    if (listId === "102") {
-      isImportant = true;
-    } else {
-      isImportant = false;
-    }
+    let isImportant = false;
     const creationDate = formatISO(Date.now());
     const taskId = v4_default();
     return { title, isDone, isImportant, creationDate, taskId };
@@ -194,7 +189,7 @@
     let currentList = document.querySelector(".active");
     let listId = currentList.id;
     let listIndex = listOfLists.findIndex((list) => list.listId === listId);
-    let id = task.taskId;
+    const id = task.taskId;
     let index = listOfLists[listIndex].listTasks.findIndex((task2) => task2.taskId === id);
     listOfLists[listIndex].listTasks[index].isImportant = !listOfLists[listIndex].listTasks[index].isImportant;
   };
@@ -206,6 +201,14 @@
     } else {
       icon.innerHTML = "\u2606";
     }
+  };
+  var deleteTask = (task) => {
+    const id = task.taskId;
+    listOfLists.forEach((list) => {
+      list.listTasks = list.listTasks.filter((task2) => {
+        return task2.taskId !== id;
+      });
+    });
   };
   var appendTaskToDOM = (task, listId) => {
     let id = task.taskId;
@@ -221,14 +224,21 @@
     checkbox.setAttribute("type", "checkbox");
     checkbox.setAttribute("id", id);
     checkbox.setAttribute("class", "task__main-part__checkbox");
+    let iconsDiv = document.createElement("div");
+    iconsDiv.setAttribute("class", "task__icons");
     let priorityIcon = document.createElement("button");
     priorityIcon.innerHTML = "\u2606";
     priorityIcon.setAttribute("class", "task__priority-icon");
     priorityIcon.setAttribute("id", `icon-${id}`);
+    let deleteButton = document.createElement("button");
+    deleteButton.innerHTML = "<img src='../public/icons/trash-alt-regular.svg' height='18px' />";
+    deleteButton.setAttribute("class", "task__delete-button");
     innerDiv.append(checkbox);
     innerDiv.append(label);
+    iconsDiv.append(priorityIcon);
+    iconsDiv.append(deleteButton);
     li.append(innerDiv);
-    li.append(priorityIcon);
+    li.append(iconsDiv);
     if (listId) {
       let ul = document.querySelector(`#content-${listId}`).lastChild;
       ul.append(li);
@@ -247,6 +257,12 @@
       toggleTaskImportance(task);
       checkIsImportant(task);
       localStorage.setItem("lists", JSON.stringify(listOfLists));
+    });
+    deleteButton.addEventListener("click", function() {
+      deleteTask(task);
+      localStorage.setItem("lists", JSON.stringify(listOfLists));
+      console.log("list id in delete button", listId);
+      openList(`content-${listId}`, listId);
     });
     checkIsDone(task);
     checkIsImportant(task);
@@ -288,9 +304,12 @@
       });
       form.style.display = "none";
     } else {
+      console.log("list id is", listId);
       const foundList = listOfLists.find((list) => {
+        console.log("list is", list);
         return list.listId === listId;
       });
+      console.log("found list", foundList);
       foundList.listTasks.forEach((task) => {
         appendTaskToDOM(task, listId);
       });
@@ -321,7 +340,7 @@
     listOfLists[index].listTasks.push(newTask);
     form.reset();
     localStorage.setItem("lists", JSON.stringify(listOfLists));
-    appendTaskToDOM(newTask);
+    appendTaskToDOM(newTask, id);
   };
   var addList = (event) => {
     event.preventDefault();

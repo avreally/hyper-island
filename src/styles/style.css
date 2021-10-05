@@ -105,6 +105,11 @@ body {
   padding-left: 15px;
 }
 
+.task__icons {
+  display: flex;
+  gap: 15px;
+}
+
 .task__priority-icon {
   appearance: none;
   margin: 0;
@@ -116,6 +121,22 @@ body {
 .task__priority-icon-important {
   color: #c4c4c4;
   text-decoration: line-through;
+}
+
+.task__delete-button {
+  appearance: none;
+  margin: 0;
+  padding: 0;
+  border-style: none;
+  background-color: transparent;
+}
+
+.task__delete-button:hover {
+  cursor: pointer;
+}
+
+.task__delete-button:active {
+  transform: scale(0.9);
 }
 
 /*Input form styles*/
