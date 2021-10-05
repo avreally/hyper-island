@@ -178,7 +178,6 @@
         }
       });
     });
-    console.log("found task", foundTask);
     foundTask.isDone = !foundTask.isDone;
   };
   var checkIsDone = (task) => {
@@ -244,7 +243,7 @@
     priorityIcon.setAttribute("class", "task__priority-icon");
     priorityIcon.setAttribute("id", `icon-${id}`);
     let deleteButton = document.createElement("button");
-    deleteButton.innerHTML = "<img src='../public/icons/trash-alt-regular.svg' height='18px' />";
+    deleteButton.innerHTML = "<img src='../public/icons/trash-alt-regular.svg' height='18px' alt='delete-icon' />";
     deleteButton.setAttribute("class", "task__delete-button");
     innerDiv.append(checkbox);
     innerDiv.append(label);
@@ -329,7 +328,10 @@
       form.style.display = "flex";
     }
     let listContent = document.getElementsByClassName("list-content");
-    [...listContent].forEach((list) => (list.style.display = "none", list.classList.remove("activeContent")));
+    [...listContent].forEach((list) => {
+      list.style.display = "none";
+      list.classList.remove("activeContent");
+    });
     let lists = document.getElementsByClassName("list");
     [...lists].forEach((list) => {
       list.classList.remove("active");

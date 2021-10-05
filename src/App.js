@@ -23,17 +23,11 @@ const listFactory = (listTitle) => {
   let listTasks = [];
   return { listTitle, listId, listTasks };
 };
-//------
+// ------
 
 const taskFactory = (title) => {
   let isDone = false;
   let isImportant = false;
-
-  // if (listId === "102") {
-  //   isImportant = true;
-  // } else {
-  //   isImportant = false;
-  // }
 
   const creationDate = formatISO(Date.now());
   const taskId = uuidv4();
@@ -41,25 +35,7 @@ const taskFactory = (title) => {
 };
 
 const toggleTaskDone = (task) => {
-  // // Finding a list in array of lists and it's index first
-  // let currentList = document.querySelector(".active");
-  // let listId = currentList.id;
-  // let listIndex = listOfLists.findIndex((list) => list.listId === listId);
-  //
-  // // then finding a task there
-  // let id = task.taskId;
-  //
-  // // TODO Finding index (create separate function bc I use it 3 times?)
-  // let index = listOfLists[listIndex].listTasks.findIndex(
-  //   (task) => task.taskId === id
-  // );
-  // listOfLists[listIndex].listTasks[index].isDone =
-  //   !listOfLists[listIndex].listTasks[index].isDone;
-
-  //  ======
-
   const id = task.taskId;
-
   let listId;
   let foundTask;
 
@@ -72,7 +48,6 @@ const toggleTaskDone = (task) => {
     });
   });
 
-  console.log("found task", foundTask);
   foundTask.isDone = !foundTask.isDone;
 };
 
@@ -90,32 +65,6 @@ const checkIsDone = (task) => {
 };
 
 const toggleTaskImportance = (task) => {
-  // Finding a list in array of lists first
-  // let currentList = document.querySelector(".active");
-  // let listId = currentList.id;
-  // let listIndex = listOfLists.findIndex((list) => list.listId === listId);
-
-  // then finding a task there
-  // const id = task.taskId;
-  // console.log("id", id);
-
-  // TODO Finding index (create separate function bc I use it 3 times?)
-  // let index = listOfLists[listIndex].listTasks.findIndex(
-  //   (task) => task.taskId === id
-  // );
-  // console.log("index", index);
-  //
-  // console.log("target task", listOfLists[listIndex].listTasks[index]);
-  // listOfLists[listIndex].listTasks[index].isImportant =
-  //   !listOfLists[listIndex].listTasks[index].isImportant;
-
-  // New 2
-
-  // const foundList = listOfLists.find((list) => {
-  //   return list.listId === listId;
-  // });
-  // console.log("found list", foundList);
-  // console.log("id", id);
   const id = task.taskId;
 
   let listId;
@@ -130,23 +79,7 @@ const toggleTaskImportance = (task) => {
     });
   });
 
-  // console.log("found task", foundTask);
-
   foundTask.isImportant = !foundTask.isImportant;
-
-  // const foundTask = foundList.listTasks.find((task) => {
-  //   return task.taskId === id;
-  // });
-  //=====
-
-  //  New 1
-  // const foundTask = listOfLists.forEach((list) => {
-  //   list.listTasks.find((task) => {
-  //     return task.taskId === id;
-  //   });
-  // });
-  // console.log(foundTask)
-  //  =====
 };
 
 const checkIsImportant = (task) => {
@@ -166,7 +99,6 @@ const deleteTask = (task) => {
     list.listTasks = list.listTasks.filter((task) => {
       return task.taskId !== id;
     });
-    // console.log("list tasks", list.listTasks);
   });
 };
 
@@ -198,7 +130,7 @@ const appendTaskToDOM = (task, listId) => {
 
   let deleteButton = document.createElement("button");
   deleteButton.innerHTML =
-    "<img src='../public/icons/trash-alt-regular.svg' height='18px' />";
+    "<img src='../public/icons/trash-alt-regular.svg' height='18px' alt='delete-icon' />";
   deleteButton.setAttribute("class", "task__delete-button");
 
   innerDiv.append(checkbox);
@@ -209,8 +141,6 @@ const appendTaskToDOM = (task, listId) => {
 
   li.append(innerDiv);
   li.append(iconsDiv);
-  // li.append(priorityIcon);
-  // li.append(deleteButton);
 
   if (listId) {
     let ul = document.querySelector(`#content-${listId}`).lastChild;
@@ -231,7 +161,6 @@ const appendTaskToDOM = (task, listId) => {
   });
 
   priorityIcon.addEventListener("click", function () {
-    // console.log("list id in priority", listId);
     toggleTaskImportance(task);
     checkIsImportant(task);
     localStorage.setItem("lists", JSON.stringify(listOfLists));
@@ -241,8 +170,6 @@ const appendTaskToDOM = (task, listId) => {
   deleteButton.addEventListener("click", function () {
     deleteTask(task);
     localStorage.setItem("lists", JSON.stringify(listOfLists));
-    // listOfLists = JSON.parse(localStorage.getItem("lists"));
-    // console.log("list id in delete button", listId);
     openList(`content-${listId}`, listId);
   });
 
@@ -266,7 +193,7 @@ const appendListToDOM = (list) => {
   listTitle.setAttribute("class", "list-content__title");
   listTitle.innerHTML = list.listTitle;
 
-  //Adding ul for tasks to store
+  // Adding ul for tasks to store
   let ul = document.createElement("ul");
   ul.setAttribute("class", "tasks-list");
 
@@ -277,12 +204,11 @@ const appendListToDOM = (list) => {
 
   button.addEventListener("click", () => {
     openList(`content-${list.listId}`, list.listId);
-    // console.log("list id in opening tab/list", list.listId);
   });
 
   document.querySelector(".all-lists").append(button);
 };
-//------
+// ------
 
 const openList = (contentId, listId) => {
   let tasksListElements = document.getElementsByClassName("tasks-list");
@@ -308,27 +234,22 @@ const openList = (contentId, listId) => {
 
     form.style.display = "none";
   } else {
-    // console.log("list id is", listId);
-
     const foundList = listOfLists.find((list) => {
-      // console.log("list is", list);
       return list.listId === listId;
     });
-    // console.log("found list", foundList);
     foundList.listTasks.forEach((task) => {
       appendTaskToDOM(task, listId);
     });
     form.style.display = "flex";
   }
 
-  //listContent and lists is an HTMLCollection and HTMLCollections do not have the forEach() method.
-  //HTMLCollection can be used with the spread operator.
+  // listContent and lists is an HTMLCollection and HTMLCollections do not have the forEach() method.
+  // HTMLCollection can be used with the spread operator.
   let listContent = document.getElementsByClassName("list-content");
-  [...listContent].forEach(
-    (list) => (
-      (list.style.display = "none"), list.classList.remove("activeContent")
-    )
-  );
+  [...listContent].forEach((list) => {
+    list.style.display = "none";
+    list.classList.remove("activeContent");
+  });
 
   let lists = document.getElementsByClassName("list");
   [...lists].forEach((list) => {
@@ -346,14 +267,8 @@ listOfLists.forEach((list) => {
   appendListToDOM(list);
 });
 
-//To show Today list on page load
+// To show Today list on page load
 openList("content-101", "101");
-
-// listOfLists.forEach((list) => {
-//   list.listTasks.forEach((task) => {
-//     appendTaskToDOM(task, list.listId);
-//   });
-// });
 
 const addTask = (event) => {
   event.preventDefault();
@@ -364,7 +279,6 @@ const addTask = (event) => {
 
   let newTask = taskFactory(title, id);
 
-  //TODO Finding index (create separate function bc I use it twice?)
   let index = listOfLists.findIndex((list) => list.listId === id);
   listOfLists[index].listTasks.push(newTask);
   //------
@@ -373,7 +287,7 @@ const addTask = (event) => {
 
   localStorage.setItem("lists", JSON.stringify(listOfLists));
 
-  // !!! Added ID below
+  // Added ID below
   appendTaskToDOM(newTask, id);
 };
 
@@ -390,7 +304,7 @@ const addList = (event) => {
   localStorage.setItem("lists", JSON.stringify(listOfLists));
   appendListToDOM(newList);
 };
-//------
+// ------
 
 // Event listener to add new task
 form.addEventListener("submit", addTask);
