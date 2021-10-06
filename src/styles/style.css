@@ -23,6 +23,7 @@ body {
   flex-direction: column;
   flex-grow: 1;
   justify-content: space-between;
+  /*background-image: url("../../public/images/background-today.jpg");*/
 }
 
 /*Left sidebar styles*/
@@ -30,8 +31,8 @@ body {
   background-color: #f7f7f7;
   display: flex;
   flex-direction: column;
-  flex: 0;
-  width: 400px;
+  /*flex: 0;*/
+  /*width: 400px;*/
   border-right: 1px solid #c7c7c7;
   justify-content: space-between;
 }
@@ -40,7 +41,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  padding: 30px 0 0 40px;
+  padding: 30px 0 0 20px;
 }
 
 .list {
@@ -136,32 +137,46 @@ body {
 }
 
 /*Input form styles*/
-.add-task-form,
+.add-task-form {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 20px 40px 20px 30px;
+}
+
 .add-list-form {
   display: flex;
   flex-direction: row;
-  padding: 10px;
+  flex-wrap: wrap;
+  padding: 20px 40px 20px 30px;
 }
 
-.add-list-form {
-  padding: 20px 40px 20px 60px;
-}
-
-.add-task-form {
-  padding: 20px 40px;
-}
-
-.add-task-form__input,
 .add-list-form__input {
-  margin-right: 10px;
+  margin: 5px 0 5px 10px;
   flex: 1;
   padding: 10px;
 }
 
-.add-list-form__button,
-.add-task-form__button {
+.add-list-form__button {
   flex: initial;
+  flex-grow: 1;
   padding: 10px 15px;
+  margin: 5px 0 5px 10px;
+}
+
+.add-task-form__input {
+  flex: 1000 1 auto;
+  margin: 5px 0 5px 10px;
+  /*flex: 1;*/
+  padding: 10px;
+}
+
+.add-task-form__button {
+  /*flex: initial;*/
+  /*flex-grow: 1;*/
+  flex: 1 3 auto;
+  padding: 10px 15px;
+  margin: 5px 0 5px 10px;
 }
 
 .tasks-list {
