@@ -11,8 +11,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "build": "esbuild src/App.js --bundle --outfile=public/bundle.js",
-    "watch": "esbuild src/App.js --bundle --watch --outfile=public/bundle.js"
+    "build": "esbuild src/App.js --bundle --loader:.jpg=file --outfile=public/bundle.js",
+    "watch": "esbuild src/App.js --bundle --loader:.jpg=file --watch --outfile=public/bundle.js"
   },
   "keywords": [],
   "author": "",

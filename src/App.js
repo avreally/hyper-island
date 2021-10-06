@@ -130,7 +130,7 @@ const appendTaskToDOM = (task, listId) => {
 
   let deleteButton = document.createElement("button");
   deleteButton.innerHTML =
-    "<img src='../public/icons/trash-alt-regular.svg' height='18px' alt='delete-icon' />";
+    "<img src='icons/trash-alt-regular.svg' height='18px' alt='delete-icon' />";
   deleteButton.setAttribute("class", "task__delete-button");
 
   innerDiv.append(checkbox);
