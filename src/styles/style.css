@@ -6,6 +6,7 @@
 html,
 body {
   height: 100%;
+  /*display: flex;*/
 }
 
 body {
@@ -15,8 +16,17 @@ body {
 .container {
   display: flex;
   flex-direction: row;
+  justify-content: stretch;
+  flex-wrap: wrap;
+  /*flex: 1;*/
   height: 100%;
 }
+
+/*.container {*/
+/*  display: grid;*/
+/*  grid-template-columns: 1fr 4fr;*/
+/*  height: 100%;*/
+/*}*/
 
 .main-column {
   display: flex;

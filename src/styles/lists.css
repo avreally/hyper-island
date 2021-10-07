@@ -31,25 +31,6 @@
   color: #fff;
 }
 
-/*List page styles*/
-.list-page {
-  display: flex;
-  flex-direction: column;
-  padding: 20px 40px 0;
-}
-
-.list-content {
-  flex-direction: column;
-}
-
-.list-content__title {
-  padding: 20px 0;
-  font-size: 2em;
-  font-weight: 600;
-  margin: 0;
-  color: #fff;
-}
-
 .add-list-form {
   display: flex;
   flex-direction: row;
