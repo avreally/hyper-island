@@ -289,7 +289,7 @@
     content.setAttribute("class", "list-content");
     content.setAttribute("id", `content-${list.listId}`);
     content.style.display = "none";
-    let listTitle = document.createElement("h1");
+    let listTitle = document.createElement("h2");
     listTitle.setAttribute("class", "list-content__title");
     listTitle.innerHTML = list.listTitle;
     let ul = document.createElement("ul");

@@ -11,11 +11,20 @@ body {
   margin: 0;
 }
 .container {
-  display: flex;
-  flex-direction: row;
-  justify-content: stretch;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-rows: 60px 1fr 60px;
+  grid-template-areas: "hd" "main" "ft";
   height: 100%;
+}
+.header {
+  grid-area: hd;
+  background-color: #1b0229;
+  color: #fff;
+}
+.main {
+  grid-area: main;
+  display: grid;
+  grid-template-columns: minmax(200px, 25%) 1fr;
 }
 .main-column {
   display: flex;
@@ -37,6 +46,12 @@ body {
 ::placeholder {
   color: rgba(77, 0, 175, 0.6);
   opacity: 1;
+}
+.footer {
+  grid-area: ft;
+  background-color: #1b0229;
+  color: #fff;
+  text-align: center;
 }
 
 /* src/styles/tasks.css */
