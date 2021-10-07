@@ -1,0 +1,90 @@
+.all-lists {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 30px 0 0 20px;
+}
+
+.list {
+  padding: 10px 20px;
+  margin: 5px 0;
+  background-color: inherit;
+  color: #fff;
+  border: none;
+  text-align: left;
+  transition: 0.3s;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.list:hover {
+  cursor: pointer;
+  background-color: rgba(80, 6, 116, 0.6);
+}
+
+/*Selected list class*/
+.all-lists button.active {
+  background-color: rgba(153, 14, 215, 0.7);
+  /*background-color: rgba(153, 14, 215, 0.5);*/
+  font-weight: 600;
+  /*color: #1b0229;*/
+  color: #fff;
+}
+
+/*List page styles*/
+.list-page {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 40px 0;
+}
+
+.list-content {
+  flex-direction: column;
+}
+
+.list-content__title {
+  padding: 20px 0;
+  font-size: 2em;
+  font-weight: 600;
+  margin: 0;
+  color: #fff;
+}
+
+.add-list-form {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 20px 40px 20px 30px;
+}
+
+.add-list-form__input {
+  margin: 5px 0 5px 10px;
+  flex: 1;
+  padding: 10px;
+  border-radius: 5px;
+  border: 2px solid #da4fd3;
+}
+
+.add-list-form__input:focus-visible {
+  outline: 2px solid #e32ada;
+}
+
+.add-list-form__button {
+  flex: initial;
+  flex-grow: 1;
+  padding: 10px 15px;
+  margin: 5px 0 5px 10px;
+  border-radius: 5px;
+  border: 2px solid #da4fd3;
+  color: #fff;
+  background-color: #3e016a;
+}
+
+.add-list-form__button:focus-visible {
+  outline: 2px solid #e32ada;
+}
+
+.add-list-form__button:hover {
+  cursor: pointer;
+  background-color: #990ed7;
+}
