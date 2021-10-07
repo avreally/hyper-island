@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import "./styles/style.css";
 import "./styles/tasks.css";
 import "./styles/lists.css";
+import "./styles/sidebar.css";
 
 const form = document.querySelector(".add-task-form");
 const input = document.querySelector(".add-task-form__input");

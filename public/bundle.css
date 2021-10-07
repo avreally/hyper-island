@@ -8,23 +8,25 @@ body {
   height: 100%;
 }
 body {
+  display: grid;
   margin: 0;
 }
 .container {
   display: grid;
-  grid-template-rows: 60px 1fr 60px;
-  grid-template-areas: "hd" "main" "ft";
+  grid: [stack] 1fr / min-content [stack] 1fr;
   height: 100%;
 }
+@media (max-width: 540px) {
+  .container > * {
+    grid-area: stack;
+  }
+}
 .header {
-  grid-area: hd;
   background-color: #1b0229;
   color: #fff;
 }
 .main {
-  grid-area: main;
   display: grid;
-  grid-template-columns: minmax(200px, 25%) 1fr;
 }
 .main-column {
   display: flex;
@@ -42,6 +44,48 @@ body {
   flex-direction: column;
   border-right: 2px solid #990ed7;
   justify-content: space-between;
+}
+#sidebar-button,
+#sidebar-close {
+  display: none;
+}
+#sidebar-button svg {
+  width: 30px;
+}
+#sidebar-button {
+  padding: 10px;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  color: #fff;
+}
+#sidebar-close {
+  color: #fff;
+  padding: 10px;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+#sidebar-close svg {
+  width: 30px;
+}
+@media (max-width: 540px) {
+  #sidebar-open {
+    visibility: hidden;
+    position: sticky;
+    top: 0;
+    max-height: 100vh;
+    overflow: hidden auto;
+    overscroll-behavior: contain;
+    z-index: 5;
+  }
+  #sidebar-open:target {
+    visibility: visible;
+  }
+  #sidebar-button,
+  #sidebar-close {
+    display: block;
+  }
 }
 ::placeholder {
   color: rgba(77, 0, 175, 0.6);
@@ -231,3 +275,5 @@ body {
   cursor: pointer;
   background-color: #990ed7;
 }
+
+/* src/styles/sidebar.css */
