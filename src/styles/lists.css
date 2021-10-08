@@ -35,12 +35,12 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  padding: 20px 40px 20px 30px;
+  padding: 20px 40px 20px 28px;
 }
 
 .add-list-form__input {
   margin: 5px 0 5px 10px;
-  flex: 1;
+  flex: 1000 1 auto;
   padding: 10px;
   border-radius: 5px;
   border: 2px solid #da4fd3;
@@ -51,8 +51,9 @@
 }
 
 .add-list-form__button {
-  flex: initial;
-  flex-grow: 1;
+  /*flex: initial;*/
+  /*flex-grow: 1;*/
+  flex: 1 3 auto;
   padding: 10px 15px;
   margin: 5px 0 5px 10px;
   border-radius: 5px;
