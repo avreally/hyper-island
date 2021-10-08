@@ -12,36 +12,11 @@ body {
   margin: 0;
 }
 
-/*.container {*/
-/*  display: flex;*/
-/*  flex-direction: row;*/
-/*  justify-content: stretch;*/
-/*  flex-wrap: wrap;*/
-/*  !*flex: 1;*!*/
-/*  height: 100%;*/
-/*}*/
-
-/*.container {*/
-/*  display: grid;*/
-/*  !*grid-template-rows: 60px 1fr 60px;*!*/
-/*  !*grid-template-areas: "hd" "main" "ft";*!*/
-/*  height: 100%;*/
-/*  grid-template-columns: ;*/
-/*}*/
-
-.header {
-  grid-area: hd;
-  background-color: #1b0229;
-  color: #fff;
-}
-
 .main {
   grid-area: main;
   display: grid;
   grid-template-columns: minmax(285px, 30%) 1fr;
   height: 100%;
-  /*display: flex;*/
-  /*flex-direction: row;*/
 }
 
 .main-column {
@@ -49,9 +24,6 @@ body {
   flex-direction: column;
   flex-grow: 1;
   justify-content: space-between;
-  /*background-image: url("../images/background-today.jpg");*/
-  /*background: linear-gradient(rgba(27, 2, 41, 0.5), rgba(153, 14, 215, 0.3)),*/
-  /*  url("../images/background-today.jpg");*/
   background: linear-gradient(rgba(27, 2, 41, 0.5), rgba(85, 0, 255, 0.14)),
     url("../images/background-today.jpg");
   background-size: cover;
@@ -65,8 +37,6 @@ body {
     linear-gradient(rgba(27, 2, 41, 0.5), rgba(85, 0, 255, 0.14));
   display: flex;
   flex-direction: column;
-  /*flex: 0;*/
-  /*width: 400px;*/
   border-right: 2px solid #990ed7;
   justify-content: space-between;
 }
@@ -82,225 +52,3 @@ body {
   color: #fff;
   text-align: center;
 }
-
-/*.all-lists {*/
-/*  display: flex;*/
-/*  flex-direction: column;*/
-/*  justify-content: flex-start;*/
-/*  padding: 30px 0 0 20px;*/
-/*}*/
-
-/*.list {*/
-/*  padding: 10px 20px;*/
-/*  margin: 5px 0;*/
-/*  background-color: inherit;*/
-/*  color: #fff;*/
-/*  border: none;*/
-/*  text-align: left;*/
-/*  transition: 0.3s;*/
-/*  border-top-left-radius: 5px;*/
-/*  border-bottom-left-radius: 5px;*/
-/*}*/
-
-/*.list:hover {*/
-/*  cursor: pointer;*/
-/*  background-color: rgba(80, 6, 116, 0.6);*/
-/*}*/
-
-/*!*Selected list class*!*/
-/*.all-lists button.active {*/
-/*  background-color: rgba(153, 14, 215, 0.7);*/
-/*  !*background-color: rgba(153, 14, 215, 0.5);*!*/
-/*  font-weight: 600;*/
-/*  !*color: #1b0229;*!*/
-/*  color: #fff;*/
-/*}*/
-
-/*!*List page styles*!*/
-/*.list-page {*/
-/*  display: flex;*/
-/*  flex-direction: column;*/
-/*  padding: 20px 40px 0;*/
-/*}*/
-
-/*.list-content {*/
-/*  flex-direction: column;*/
-/*}*/
-
-/*.list-content__title {*/
-/*  padding: 20px 0;*/
-/*  font-size: 2em;*/
-/*  font-weight: 600;*/
-/*  margin: 0;*/
-/*  color: #fff;*/
-/*}*/
-
-/*.task {*/
-/*  display: flex;*/
-/*  flex-direction: row;*/
-/*  justify-content: space-between;*/
-/*  padding: 10px 10px;*/
-/*  margin: 10px 0;*/
-/*  border-radius: 5px;*/
-/*  font-weight: 400;*/
-/*  background-color: rgba(255, 255, 255, 0.85);*/
-/*  backdrop-filter: blur(2px);*/
-/*}*/
-
-/*.task__main-part {*/
-/*  display: flex;*/
-/*  align-items: center;*/
-/*}*/
-
-/*.task__main-part__checkbox {*/
-/*  margin: 0;*/
-
-/*  !*: #4d00af;*!*/
-/*}*/
-
-/*.task__main-part__checkbox:focus-visible {*/
-/*  outline: 1px solid #e32ada;*/
-/*}*/
-
-/*!*.task__main-part__checkbox:checked {*!*/
-/*!*  background: #4d00af;*!*/
-/*!*}*!*/
-
-/*.task__main-part__checkbox:checked + label {*/
-/*  color: rgba(77, 0, 175, 0.6);*/
-/*  text-decoration: line-through;*/
-/*}*/
-
-/*.task__main-part__label {*/
-/*  padding-left: 15px;*/
-/*  !*color: #5402bd;*!*/
-/*  color: #4d00af;*/
-/*  display: flex;*/
-/*  align-items: center;*/
-/*}*/
-
-/*.task__icons {*/
-/*  display: flex;*/
-/*  align-items: center;*/
-/*  gap: 15px;*/
-/*}*/
-
-/*.task__priority-icon {*/
-/*  appearance: none;*/
-/*  margin: 0;*/
-/*  padding: 0;*/
-/*  border-style: none;*/
-/*  background-color: transparent;*/
-/*  color: #990ed7;*/
-/*}*/
-
-/*.task__priority-icon-important {*/
-/*  color: #990ed7;*/
-/*  text-decoration: line-through;*/
-/*}*/
-
-/*.task__delete-button {*/
-/*  appearance: none;*/
-/*  margin: 0;*/
-/*  padding: 0;*/
-/*  border-style: none;*/
-/*  background-color: transparent;*/
-/*  display: flex;*/
-/*  align-items: center;*/
-/*}*/
-
-/*.task__delete-button:hover {*/
-/*  cursor: pointer;*/
-/*}*/
-
-/*.task__delete-button:active {*/
-/*  transform: scale(0.9);*/
-/*}*/
-
-/*!*Input form styles*!*/
-/*.add-task-form {*/
-/*  display: flex;*/
-/*  flex-direction: row;*/
-/*  flex-wrap: wrap;*/
-/*  padding: 20px 40px 20px 30px;*/
-/*}*/
-
-/*.add-list-form {*/
-/*  display: flex;*/
-/*  flex-direction: row;*/
-/*  flex-wrap: wrap;*/
-/*  padding: 20px 40px 20px 30px;*/
-/*}*/
-
-/*.add-list-form__input {*/
-/*  margin: 5px 0 5px 10px;*/
-/*  flex: 1;*/
-/*  padding: 10px;*/
-/*  border-radius: 5px;*/
-/*  border: 2px solid #da4fd3;*/
-/*}*/
-
-/*.add-list-form__input:focus-visible {*/
-/*  outline: 2px solid #e32ada;*/
-/*}*/
-
-/*.add-list-form__button {*/
-/*  flex: initial;*/
-/*  flex-grow: 1;*/
-/*  padding: 10px 15px;*/
-/*  margin: 5px 0 5px 10px;*/
-/*  border-radius: 5px;*/
-/*  border: 2px solid #da4fd3;*/
-/*  color: #fff;*/
-/*  background-color: #3e016a;*/
-/*}*/
-
-/*.add-list-form__button:focus-visible {*/
-/*  outline: 2px solid #e32ada;*/
-/*}*/
-
-/*.add-list-form__button:hover {*/
-/*  cursor: pointer;*/
-/*  background-color: #990ed7;*/
-/*}*/
-
-/*.add-task-form__input {*/
-/*  flex: 1000 1 auto;*/
-/*  margin: 5px 0 5px 10px;*/
-/*  !*flex: 1;*!*/
-/*  padding: 10px;*/
-/*  border-radius: 5px;*/
-/*  !*border: 2px solid #990ed7;*!*/
-/*  border: 2px solid #da4fd3;*/
-/*}*/
-
-/*.add-task-form__input:focus-visible {*/
-/*  outline: 2px solid #e32ada;*/
-/*}*/
-
-/*.add-task-form__button {*/
-/*  !*flex: initial;*!*/
-/*  !*flex-grow: 1;*!*/
-/*  flex: 1 3 auto;*/
-/*  padding: 10px 15px;*/
-/*  margin: 5px 0 5px 10px;*/
-/*  border-radius: 5px;*/
-/*  border: 2px solid #da4fd3;*/
-/*  color: #fff;*/
-/*  background-color: #3e016a;*/
-/*}*/
-
-/*.add-task-form__button:focus-visible {*/
-/*  outline: 2px solid #e32ada;*/
-/*}*/
-
-/*.add-task-form__button:hover {*/
-/*  cursor: pointer;*/
-/*  background-color: #990ed7;*/
-/*}*/
-
-/*.tasks-list {*/
-/*  margin-block-start: 0;*/
-/*  margin-block-end: 0;*/
-/*  padding-inline-start: 0;*/
-/*}*/

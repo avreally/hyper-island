@@ -10,11 +10,6 @@ body {
 body {
   margin: 0;
 }
-.header {
-  grid-area: hd;
-  background-color: #1b0229;
-  color: #fff;
-}
 .main {
   grid-area: main;
   display: grid;

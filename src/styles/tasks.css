@@ -36,17 +36,11 @@
 
 .task__main-part__checkbox {
   margin: 0;
-
-  /*: #4d00af;*/
 }
 
 .task__main-part__checkbox:focus-visible {
   outline: 1px solid #e32ada;
 }
-
-/*.task__main-part__checkbox:checked {*/
-/*  background: #4d00af;*/
-/*}*/
 
 .task__main-part__checkbox:checked + label {
   color: rgba(77, 0, 175, 0.6);
@@ -110,10 +104,8 @@
 .add-task-form__input {
   flex: 1000 1 auto;
   margin: 5px 0 5px 10px;
-  /*flex: 1;*/
   padding: 10px;
   border-radius: 5px;
-  /*border: 2px solid #990ed7;*/
   border: 2px solid #da4fd3;
 }
 
@@ -122,8 +114,6 @@
 }
 
 .add-task-form__button {
-  /*flex: initial;*/
-  /*flex-grow: 1;*/
   flex: 1 3 auto;
   padding: 10px 15px;
   margin: 5px 0 5px 10px;
