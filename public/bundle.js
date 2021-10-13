@@ -243,7 +243,7 @@
     priorityIcon.setAttribute("class", "task__priority-icon");
     priorityIcon.setAttribute("id", `icon-${id}`);
     let deleteButton = document.createElement("button");
-    deleteButton.innerHTML = "<img src='../public/icons/trash-alt-regular.svg' height='18px' alt='delete-icon' />";
+    deleteButton.innerHTML = "<img src='icons/trash-alt-regular.svg' height='18px' alt='delete-icon' />";
     deleteButton.setAttribute("class", "task__delete-button");
     innerDiv.append(checkbox);
     innerDiv.append(label);
@@ -289,7 +289,7 @@
     content.setAttribute("class", "list-content");
     content.setAttribute("id", `content-${list.listId}`);
     content.style.display = "none";
-    let listTitle = document.createElement("h1");
+    let listTitle = document.createElement("h2");
     listTitle.setAttribute("class", "list-content__title");
     listTitle.innerHTML = list.listTitle;
     let ul = document.createElement("ul");

@@ -1,6 +1,8 @@
 import { formatISO } from "date-fns";
 import { v4 as uuidv4 } from "uuid";
 import "./styles/style.css";
+import "./styles/tasks.css";
+import "./styles/lists.css";
 
 const form = document.querySelector(".add-task-form");
 const input = document.querySelector(".add-task-form__input");
@@ -130,7 +132,7 @@ const appendTaskToDOM = (task, listId) => {
 
   let deleteButton = document.createElement("button");
   deleteButton.innerHTML =
-    "<img src='../public/icons/trash-alt-regular.svg' height='18px' alt='delete-icon' />";
+    "<img src='icons/trash-alt-regular.svg' height='18px' alt='delete-icon' />";
   deleteButton.setAttribute("class", "task__delete-button");
 
   innerDiv.append(checkbox);
@@ -189,7 +191,7 @@ const appendListToDOM = (list) => {
   content.setAttribute("id", `content-${list.listId}`);
   content.style.display = "none";
 
-  let listTitle = document.createElement("h1");
+  let listTitle = document.createElement("h2");
   listTitle.setAttribute("class", "list-content__title");
   listTitle.innerHTML = list.listTitle;
 
