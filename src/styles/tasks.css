@@ -9,6 +9,11 @@
   flex-direction: column;
 }
 
+.list-content__title-container {
+  display: flex;
+  flex-direction: row;
+}
+
 .list-content__title {
   padding: 20px 0;
   font-size: 2em;
@@ -16,6 +21,8 @@
   margin: 0;
   color: #fff;
 }
+
+/* Tasks styles */
 
 .task {
   display: flex;

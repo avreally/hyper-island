@@ -289,12 +289,15 @@
     content.setAttribute("class", "list-content");
     content.setAttribute("id", `content-${list.listId}`);
     content.style.display = "none";
+    let listTitleContainer = document.createElement("div");
+    listTitleContainer.setAttribute("class", "list-content__title-container");
     let listTitle = document.createElement("h2");
     listTitle.setAttribute("class", "list-content__title");
     listTitle.innerHTML = list.listTitle;
     let ul = document.createElement("ul");
     ul.setAttribute("class", "tasks-list");
-    content.append(listTitle);
+    content.append(listTitleContainer);
+    listTitleContainer.append(listTitle);
     content.append(ul);
     document.querySelector(".list-page").append(content);
     button.addEventListener("click", () => {
