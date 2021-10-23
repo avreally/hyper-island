@@ -294,10 +294,13 @@
     let listTitle = document.createElement("h2");
     listTitle.setAttribute("class", "list-content__title");
     listTitle.innerHTML = list.listTitle;
+    let deleteListButton = document.createElement("button");
+    deleteListButton.setAttribute("class", "delete-list-button");
     let ul = document.createElement("ul");
     ul.setAttribute("class", "tasks-list");
-    content.append(listTitleContainer);
     listTitleContainer.append(listTitle);
+    listTitleContainer.append(deleteListButton);
+    content.append(listTitleContainer);
     content.append(ul);
     document.querySelector(".list-page").append(content);
     button.addEventListener("click", () => {
