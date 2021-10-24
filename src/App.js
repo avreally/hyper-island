@@ -211,11 +211,17 @@ const appendListToDOM = (list) => {
   deleteListButton.setAttribute("class", "list-delete-button");
 
   deleteListButton.addEventListener("click", function () {
-    deleteList(list);
-    // Delete list tab on sidebar
-    document.getElementById(`${list.listId}`).remove();
-    localStorage.setItem("lists", JSON.stringify(listOfLists));
-    openList("content-101", "101");
+    if (
+      window.confirm(
+        `Are you sure you want to delete this list "${list.listTitle}" and all tasks in it?`
+      )
+    ) {
+      deleteList(list);
+      // Delete list tab on sidebar
+      document.getElementById(`${list.listId}`).remove();
+      localStorage.setItem("lists", JSON.stringify(listOfLists));
+      openList("content-101", "101");
+    }
   });
 
   listTitleContainer.append(listTitle);
