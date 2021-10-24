@@ -9,6 +9,13 @@
   flex-direction: column;
 }
 
+.list-content__title-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .list-content__title {
   padding: 20px 0;
   font-size: 2em;
@@ -16,6 +23,36 @@
   margin: 0;
   color: #fff;
 }
+
+.list-delete-button {
+  appearance: none;
+  margin: 0;
+  padding: 0;
+  border-style: none;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  height: 1.5rem;
+}
+
+.list-delete-button:hover {
+  cursor: pointer;
+}
+
+.list-delete-button:active {
+  transform: scale(0.9);
+}
+
+.list-delete-button svg {
+  height: 1.5rem;
+  fill: #fff;
+}
+
+.list-delete-button svg path {
+  fill: #fff;
+}
+
+/* Tasks styles */
 
 .task {
   display: flex;
