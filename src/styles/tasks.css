@@ -1,64 +1,10 @@
-/*List page styles*/
-.list-page {
-  display: flex;
-  flex-direction: column;
-  padding: 20px 40px 0;
-}
-
-.list-content {
-  flex-direction: column;
-}
-
-.list-content__title-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.list-content__title {
-  padding: 20px 0;
-  font-size: 2em;
-  font-weight: 600;
-  margin: 0;
-  color: #fff;
-}
-
-.list-delete-button {
-  appearance: none;
-  margin: 0;
-  padding: 0;
-  border-style: none;
-  background-color: transparent;
-  display: flex;
-  align-items: center;
-  height: 1.5rem;
-}
-
-.list-delete-button:hover {
-  cursor: pointer;
-}
-
-.list-delete-button:active {
-  transform: scale(0.9);
-}
-
-.list-delete-button svg {
-  height: 1.5rem;
-  fill: #fff;
-}
-
-.list-delete-button svg path {
-  fill: #fff;
-}
-
 /* Tasks styles */
 
 .task {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 10px 10px;
+  padding: 5px 10px;
   margin: 10px 0;
   border-radius: 5px;
   font-weight: 400;
@@ -69,10 +15,12 @@
 .task__main-part {
   display: flex;
   align-items: center;
+  padding-left: 5px;
 }
 
 .task__main-part__checkbox {
   margin: 0;
+  padding: 5px;
 }
 
 .task__main-part__checkbox:focus-visible {
@@ -95,13 +43,13 @@
 .task__icons {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 10px;
 }
 
 .task__priority-icon {
   appearance: none;
   margin: 0;
-  padding: 0;
+  padding: 5px;
   border-style: none;
   background-color: transparent;
   color: #990ed7;
@@ -115,7 +63,7 @@
 .task__delete-button {
   appearance: none;
   margin: 0;
-  padding: 0;
+  padding: 5px;
   border-style: none;
   background-color: transparent;
   display: flex;
@@ -126,7 +74,11 @@
   cursor: pointer;
 }
 
-.task__delete-button:active {
+.task__delete-button svg {
+  height: 1rem;
+}
+
+.task__delete-button:active svg {
   transform: scale(0.9);
 }
 
