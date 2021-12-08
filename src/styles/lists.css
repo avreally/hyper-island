@@ -34,13 +34,11 @@
 .add-list-form {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
   padding: 20px 40px 20px 28px;
 }
 
 .add-list-form__input {
-  margin: 5px 0 5px 10px;
-  flex: 1000 1 auto;
+  flex-basis: 92%;
   padding: 10px;
   border-radius: 5px;
   border: 2px solid #da4fd3;
@@ -56,13 +54,13 @@
 }
 
 .add-list-form__button {
-  flex: 1 3 auto;
   padding: 10px 15px;
-  margin: 5px 0 5px 10px;
+  flex-basis: 8%;
   border-radius: 5px;
   border: 2px solid #da4fd3;
   color: #fff;
   background-color: #3e016a;
+  margin-left: 5px;
 }
 
 .add-list-form__button:focus {
