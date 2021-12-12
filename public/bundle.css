@@ -14,6 +14,7 @@ html {
 body {
   margin: 0;
   padding: 0;
+  background-color: #1b0229;
 }
 html,
 body {
@@ -23,7 +24,10 @@ body {
   grid-area: main;
   display: grid;
   grid-template-columns: minmax(285px, 30%) 1fr;
+  gap: 2px;
   height: 100%;
+  background-color: #990ed7;
+  overflow: auto;
 }
 .main-column {
   display: flex;
@@ -34,13 +38,14 @@ body {
   background-size: cover;
   background-position: center;
   background-color: #1b0229;
+  overflow: auto;
 }
 .left-sidebar {
   background: linear-gradient(to bottom, rgb(27, 2, 41), rgb(35, 2, 71));
   display: flex;
   flex-direction: column;
-  border-right: 2px solid #990ed7;
   justify-content: space-between;
+  overflow: auto;
 }
 ::placeholder {
   color: rgba(77, 0, 175, 0.6);
@@ -125,13 +130,15 @@ body {
 .add-task-form {
   display: flex;
   flex-direction: row;
-  padding: 20px 40px 20px 30px;
+  padding: 20px 30px;
+  flex: 0 0 auto;
 }
 .add-task-form__input {
   flex-basis: 92%;
   padding: 10px;
   border-radius: 5px;
   border: 2px solid #da4fd3;
+  min-width: 0;
 }
 .add-task-form__input:focus {
   box-shadow: 0 0 3pt 2pt #e32ada;
@@ -171,10 +178,12 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  padding: 30px 0 0 20px;
+  padding: 30px 0 0 30px;
+  overflow: auto;
+  flex: 1 1 auto;
 }
 .list {
-  padding: 10px 20px;
+  padding: 10px;
   margin: 5px 0;
   background-color: inherit;
   color: #fff;
@@ -196,13 +205,15 @@ body {
 .add-list-form {
   display: flex;
   flex-direction: row;
-  padding: 20px 40px 20px 28px;
+  padding: 20px 30px;
+  flex: 0 0 auto;
 }
 .add-list-form__input {
   flex-basis: 92%;
   padding: 10px;
   border-radius: 5px;
   border: 2px solid #da4fd3;
+  min-width: 0;
 }
 .add-list-form__input:focus {
   box-shadow: 0 0 3pt 2pt #e32ada;
@@ -234,7 +245,9 @@ body {
 .list-page {
   display: flex;
   flex-direction: column;
-  padding: 20px 40px 0;
+  padding: 20px 30px 0 30px;
+  overflow: auto;
+  flex: 1 1 auto;
 }
 .list-content {
   flex-direction: column;

@@ -15,6 +15,7 @@ html {
 body {
   margin: 0;
   padding: 0;
+  background-color: #1b0229;
 }
 
 html,
@@ -26,7 +27,10 @@ body {
   grid-area: main;
   display: grid;
   grid-template-columns: minmax(285px, 30%) 1fr;
+  gap: 2px;
   height: 100%;
+  background-color: #990ed7;
+  overflow: auto;
 }
 
 .main-column {
@@ -39,6 +43,7 @@ body {
   background-size: cover;
   background-position: center;
   background-color: #1b0229;
+  overflow: auto;
 }
 
 /*Left sidebar styles*/
@@ -48,8 +53,9 @@ body {
   background: linear-gradient(to bottom, rgb(27, 2, 41), rgb(35, 2, 71));
   display: flex;
   flex-direction: column;
-  border-right: 2px solid #990ed7;
+  /*border-right: 2px solid #990ed7;*/
   justify-content: space-between;
+  overflow: auto;
 }
 
 ::placeholder {
