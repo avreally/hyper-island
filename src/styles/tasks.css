@@ -34,7 +34,6 @@
 
 .task__main-part__label {
   padding-left: 15px;
-  /*color: #5402bd;*/
   color: #4d00af;
   display: flex;
   align-items: center;
@@ -82,20 +81,20 @@
   transform: scale(0.9);
 }
 
-/*Input form styles*/
+/* Input form for tasks styles */
 .add-task-form {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
-  padding: 20px 40px 20px 30px;
+  padding: 20px 30px;
+  flex: 0 0 auto;
 }
 
 .add-task-form__input {
-  flex: 1000 1 auto;
-  margin: 5px 0 5px 10px;
+  flex-basis: 92%;
   padding: 10px;
   border-radius: 5px;
   border: 2px solid #da4fd3;
+  min-width: 0;
 }
 
 .add-task-form__input:focus {
@@ -108,13 +107,13 @@
 }
 
 .add-task-form__button {
-  flex: 1 3 auto;
+  flex-basis: 8%;
   padding: 10px 15px;
-  margin: 5px 0 5px 10px;
   border-radius: 5px;
   border: 2px solid #da4fd3;
   color: #fff;
   background-color: #3e016a;
+  margin-left: 5px;
 }
 
 .add-task-form__button:focus {
