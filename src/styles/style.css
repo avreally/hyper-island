@@ -46,14 +46,11 @@ body {
   overflow: auto;
 }
 
-/*Left sidebar styles*/
+/* Left sidebar styles */
 .left-sidebar {
-  /*background: #1b0229*/
-  /*  linear-gradient(rgba(27, 2, 41, 0.5), rgba(85, 0, 255, 0.14));*/
   background: linear-gradient(to bottom, rgb(27, 2, 41), rgb(35, 2, 71));
   display: flex;
   flex-direction: column;
-  /*border-right: 2px solid #990ed7;*/
   justify-content: space-between;
   overflow: auto;
 }

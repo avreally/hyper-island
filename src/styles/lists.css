@@ -24,15 +24,14 @@
   background-color: rgba(80, 6, 116, 0.6);
 }
 
-/*Selected list class*/
+/* Selected list class */
 .all-lists button.active {
   background-color: rgba(153, 14, 215, 0.7);
-  /*background-color: rgba(153, 14, 215, 0.5);*/
   font-weight: 600;
-  /*color: #1b0229;*/
   color: #fff;
 }
 
+/* Input form for lists styles */
 .add-list-form {
   display: flex;
   flex-direction: row;
@@ -81,7 +80,7 @@
   background-color: #990ed7;
 }
 
-/*List page styles*/
+/* List page styles */
 .list-page {
   display: flex;
   flex-direction: column;

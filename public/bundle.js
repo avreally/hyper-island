@@ -370,7 +370,12 @@
   openList("content-101", "101");
   var addTask = (event) => {
     event.preventDefault();
-    let title = input.value;
+    let title;
+    if (input.value.trim() === "") {
+      title = "Untitled task";
+    } else {
+      title = input.value;
+    }
     let currentList = document.querySelector(".active");
     let id = currentList.id;
     let newTask = taskFactory(title, id);
@@ -382,7 +387,12 @@
   };
   var addList = (event) => {
     event.preventDefault();
-    let listTitle = listInput.value;
+    let listTitle;
+    if (listInput.value.trim() === "") {
+      listTitle = "Untitled list";
+    } else {
+      listTitle = listInput.value;
+    }
     let newList = listFactory(listTitle);
     listOfLists.push(newList);
     listForm.reset();

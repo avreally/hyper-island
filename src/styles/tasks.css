@@ -34,7 +34,6 @@
 
 .task__main-part__label {
   padding-left: 15px;
-  /*color: #5402bd;*/
   color: #4d00af;
   display: flex;
   align-items: center;
@@ -82,7 +81,7 @@
   transform: scale(0.9);
 }
 
-/*Input form styles*/
+/* Input form for tasks styles */
 .add-task-form {
   display: flex;
   flex-direction: row;
