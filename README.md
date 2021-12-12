@@ -1,7 +1,8 @@
 # About
 
 A to do list project which was created during studying at Hyper Island.\
-The app allows user to add and delete tasks and lists, mark tasks as important.
+The app allows user to add and delete tasks and lists, mark tasks as important and completed.\
+All data is stored in Local Storage.
 
 # Run application
 
