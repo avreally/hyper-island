@@ -23,7 +23,7 @@ body {
   height: 100%;
 }
 
-.backgroundBlur {
+.background-blur {
   height: 100%;
   position: absolute;
   width: 100%;
@@ -54,17 +54,17 @@ body {
   overflow: auto;
 }
 
-.sidebarToggleIcon {
+.sidebar-toggle-icon {
   position: absolute;
   z-index: 3;
   pointer-events: none;
 }
 
-.sidebarToggleIcon svg path {
+.sidebar-toggle-icon svg path {
   fill: #fff;
 }
 
-.closeMenu {
+.close-menu-icon {
   width: 30px;
   height: 45px;
   position: absolute;
@@ -73,7 +73,7 @@ body {
   margin: 5px 10px;
 }
 
-.openMenu {
+.open-menu-icon {
   width: 30px;
   height: 45px;
   position: absolute;
@@ -82,12 +82,12 @@ body {
   margin: 5px 10px;
 }
 
-#openSidebar {
+#sidebar-toggle-checkbox {
   display: none;
 }
 
-/* Left sidebar styles */
-.left-sidebar {
+/* Sidebar styles */
+.sidebar {
   background: linear-gradient(to bottom, rgb(27, 2, 41), rgb(35, 2, 71));
   display: flex;
   flex-direction: column;
@@ -101,7 +101,7 @@ body {
 }
 
 @media (max-width: 600px) {
-  .left-sidebar {
+  .sidebar {
     height: 100%;
     position: fixed;
     left: 0;
@@ -115,33 +115,33 @@ body {
     grid-column: 1/3;
   }
 
-  .sidebarToggleIcon {
+  .sidebar-toggle-icon {
     pointer-events: auto;
   }
 
-  .openMenu {
+  .open-menu-icon {
     opacity: 1;
   }
 
-  .closeMenu:hover,
-  .openMenu:hover {
+  .close-menu-icon:hover,
+  .open-menu-icon:hover {
     cursor: pointer;
   }
 
-  #openSidebar:checked ~ .left-sidebar {
+  #sidebar-toggle-checkbox:checked ~ .sidebar {
     transform: translateX(0);
   }
 
-  #openSidebar:checked ~ .backgroundBlur {
+  #sidebar-toggle-checkbox:checked ~ .background-blur {
     display: block;
     backdrop-filter: blur(4px);
   }
 
-  #openSidebar:checked ~ .sidebarToggleIcon > .openMenu {
+  #sidebar-toggle-checkbox:checked ~ .sidebar-toggle-icon > .open-menu-icon {
     opacity: 0;
   }
 
-  #openSidebar:checked ~ .sidebarToggleIcon > .closeMenu {
+  #sidebar-toggle-checkbox:checked ~ .sidebar-toggle-icon > .close-menu-icon {
     opacity: 1;
   }
 }
