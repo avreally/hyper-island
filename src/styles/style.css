@@ -135,6 +135,7 @@ body {
   #sidebar-toggle-checkbox:checked ~ .background-blur {
     display: block;
     backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
   }
 
   #sidebar-toggle-checkbox:checked ~ .sidebar-toggle-icon > .open-menu-icon {
