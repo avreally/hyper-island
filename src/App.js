@@ -359,3 +359,16 @@ form.addEventListener("submit", addTask);
 
 // Event listener to add new list
 listForm.addEventListener("submit", addList);
+
+// Event listener to close sidebar on background click
+const backgroundBlurLayer = document.querySelector(".background-blur");
+const sidebarToggle = document.querySelector("#sidebar-toggle-checkbox");
+
+const closeSidebarOnBackgroundBlurClick = () => {
+  sidebarToggle.checked = false;
+};
+
+backgroundBlurLayer.addEventListener(
+  "click",
+  closeSidebarOnBackgroundBlurClick
+);

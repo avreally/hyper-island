@@ -23,10 +23,18 @@ body {
   height: 100%;
 }
 
+.background-blur {
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  z-index: 1;
+  display: none;
+}
+
 .main {
   grid-area: main;
   display: grid;
-  grid-template-columns: minmax(285px, 30%) 1fr;
+  grid-template-columns: minmax(300px, 30%) 1fr;
   gap: 2px;
   height: 100%;
   background-color: #990ed7;
@@ -46,8 +54,40 @@ body {
   overflow: auto;
 }
 
-/* Left sidebar styles */
-.left-sidebar {
+.sidebar-toggle-icon {
+  position: absolute;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.sidebar-toggle-icon svg path {
+  fill: #fff;
+}
+
+.close-menu-icon {
+  width: 30px;
+  height: 45px;
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.4s;
+  margin: 5px 10px;
+}
+
+.open-menu-icon {
+  width: 30px;
+  height: 45px;
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.4s;
+  margin: 5px 10px;
+}
+
+#sidebar-toggle-checkbox {
+  display: none;
+}
+
+/* Sidebar styles */
+.sidebar {
   background: linear-gradient(to bottom, rgb(27, 2, 41), rgb(35, 2, 71));
   display: flex;
   flex-direction: column;
@@ -60,9 +100,48 @@ body {
   opacity: 1;
 }
 
-.footer {
-  grid-area: ft;
-  background-color: #1b0229;
-  color: #fff;
-  text-align: center;
+@media (max-width: 600px) {
+  .sidebar {
+    height: 100%;
+    position: fixed;
+    left: 0;
+    width: 300px;
+    transform: translateX(-300px);
+    transition: transform 250ms ease-in-out;
+    z-index: 2;
+  }
+
+  .main-column {
+    grid-column: 1/3;
+  }
+
+  .sidebar-toggle-icon {
+    pointer-events: auto;
+  }
+
+  .open-menu-icon {
+    opacity: 1;
+  }
+
+  .close-menu-icon:hover,
+  .open-menu-icon:hover {
+    cursor: pointer;
+  }
+
+  #sidebar-toggle-checkbox:checked ~ .sidebar {
+    transform: translateX(0);
+  }
+
+  #sidebar-toggle-checkbox:checked ~ .background-blur {
+    display: block;
+    backdrop-filter: blur(4px);
+  }
+
+  #sidebar-toggle-checkbox:checked ~ .sidebar-toggle-icon > .open-menu-icon {
+    opacity: 0;
+  }
+
+  #sidebar-toggle-checkbox:checked ~ .sidebar-toggle-icon > .close-menu-icon {
+    opacity: 1;
+  }
 }

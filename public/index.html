@@ -31,7 +31,41 @@
   </head>
   <body>
     <main class="main">
-      <div class="left-sidebar">
+      <input type="checkbox" id="sidebar-toggle-checkbox" />
+      <label for="sidebar-toggle-checkbox" class="sidebar-toggle-icon">
+        <svg
+          class="open-menu-icon"
+          viewBox="0 0 512 512"
+          xml:space="preserve"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+        >
+          <g>
+            <path
+              d="M417.4,224H94.6C77.7,224,64,238.3,64,256c0,17.7,13.7,32,30.6,32h322.8c16.9,0,30.6-14.3,30.6-32   C448,238.3,434.3,224,417.4,224z"
+            />
+            <path
+              d="M417.4,96H94.6C77.7,96,64,110.3,64,128c0,17.7,13.7,32,30.6,32h322.8c16.9,0,30.6-14.3,30.6-32   C448,110.3,434.3,96,417.4,96z"
+            />
+            <path
+              d="M417.4,352H94.6C77.7,352,64,366.3,64,384c0,17.7,13.7,32,30.6,32h322.8c16.9,0,30.6-14.3,30.6-32   C448,366.3,434.3,352,417.4,352z"
+            />
+          </g>
+        </svg>
+        <svg
+          class="close-menu-icon"
+          viewBox="0 0 512 512"
+          xml:space="preserve"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+        >
+          <path
+            d="M437.5,386.6L306.9,256l130.6-130.6c14.1-14.1,14.1-36.8,0-50.9c-14.1-14.1-36.8-14.1-50.9,0L256,205.1L125.4,74.5  c-14.1-14.1-36.8-14.1-50.9,0c-14.1,14.1-14.1,36.8,0,50.9L205.1,256L74.5,386.6c-14.1,14.1-14.1,36.8,0,50.9  c14.1,14.1,36.8,14.1,50.9,0L256,306.9l130.6,130.6c14.1,14.1,36.8,14.1,50.9,0C451.5,423.4,451.5,400.6,437.5,386.6z"
+          />
+        </svg>
+      </label>
+      <div class="background-blur"></div>
+      <div class="sidebar">
         <div class="all-lists"></div>
         <form class="add-list-form">
           <input
