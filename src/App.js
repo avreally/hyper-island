@@ -22,14 +22,14 @@ localStorage.setItem("lists", JSON.stringify(listOfLists));
 // Lists factory function
 const listFactory = (listTitle) => {
   const listId = uuidv4();
-  let listTasks = [];
+  const listTasks = [];
   return { listTitle, listId, listTasks };
 };
 // ------
 
 const taskFactory = (title) => {
-  let isDone = false;
-  let isImportant = false;
+  const isDone = false;
+  const isImportant = false;
 
   const creationDate = formatISO(Date.now());
   const taskId = uuidv4();
@@ -54,9 +54,9 @@ const toggleTaskDone = (task) => {
 };
 
 const checkIsDone = (task) => {
-  let id = task.taskId;
-  let checkbox = document.getElementById(id);
-  let icon = document.getElementById(`icon-${id}`);
+  const id = task.taskId;
+  const checkbox = document.getElementById(id);
+  const icon = document.getElementById(`icon-${id}`);
 
   if (task.isDone) {
     checkbox.setAttribute("checked", "");
@@ -85,8 +85,8 @@ const toggleTaskImportance = (task) => {
 };
 
 const checkIsImportant = (task) => {
-  let id = `icon-${task.taskId}`;
-  let icon = document.getElementById(id);
+  const id = `icon-${task.taskId}`;
+  const icon = document.getElementById(id);
 
   if (task.isImportant) {
     icon.innerHTML = "★";
@@ -112,32 +112,32 @@ const deleteList = (list) => {
 };
 
 const appendTaskToDOM = (task, listId) => {
-  let id = task.taskId;
-  let li = document.createElement("li");
+  const id = task.taskId;
+  const li = document.createElement("li");
   li.classList.add("task");
 
-  let innerDiv = document.createElement("div");
+  const innerDiv = document.createElement("div");
   innerDiv.classList.add("task__main-part");
 
-  let label = document.createElement("label");
+  const label = document.createElement("label");
   label.textContent = task.title;
   label.setAttribute("for", id);
   label.setAttribute("class", "task__main-part__label");
 
-  let checkbox = document.createElement("input");
+  const checkbox = document.createElement("input");
   checkbox.setAttribute("type", "checkbox");
   checkbox.setAttribute("id", id);
   checkbox.setAttribute("class", "task__main-part__checkbox");
 
-  let iconsDiv = document.createElement("div");
+  const iconsDiv = document.createElement("div");
   iconsDiv.setAttribute("class", "task__icons");
 
-  let priorityIcon = document.createElement("button");
+  const priorityIcon = document.createElement("button");
   priorityIcon.innerHTML = "☆";
   priorityIcon.setAttribute("class", "task__priority-icon");
   priorityIcon.setAttribute("id", `icon-${id}`);
 
-  let deleteButton = document.createElement("button");
+  const deleteButton = document.createElement("button");
   deleteButton.innerHTML =
     '<svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="trash-alt" class="svg-inline--fa fa-trash-alt fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="#990ed7" d="M268 416h24a12 12 0 0 0 12-12V188a12 12 0 0 0-12-12h-24a12 12 0 0 0-12 12v216a12 12 0 0 0 12 12zM432 80h-82.41l-34-56.7A48 48 0 0 0 274.41 0H173.59a48 48 0 0 0-41.16 23.3L98.41 80H16A16 16 0 0 0 0 96v16a16 16 0 0 0 16 16h16v336a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128h16a16 16 0 0 0 16-16V96a16 16 0 0 0-16-16zM171.84 50.91A6 6 0 0 1 177 48h94a6 6 0 0 1 5.15 2.91L293.61 80H154.39zM368 464H80V128h288zm-212-48h24a12 12 0 0 0 12-12V188a12 12 0 0 0-12-12h-24a12 12 0 0 0-12 12v216a12 12 0 0 0 12 12z"></path></svg>';
   // "<img src='icons/trash-alt-regular.svg' height='18px' alt='delete-icon' />";
@@ -153,11 +153,11 @@ const appendTaskToDOM = (task, listId) => {
   li.append(iconsDiv);
 
   if (listId) {
-    let ul = document.querySelector(`#content-${listId}`).lastChild;
+    const ul = document.querySelector(`#content-${listId}`).lastChild;
     ul.append(li);
     document.querySelector(`#content-${listId}`).append(ul);
   } else {
-    let ul = document.querySelector(".activeContent").lastChild;
+    const ul = document.querySelector(".activeContent").lastChild;
     ul.append(li);
     document.querySelector(".activeContent").append(ul);
   }
@@ -189,24 +189,24 @@ const appendTaskToDOM = (task, listId) => {
 
 // Function for rendering new list
 const appendListToDOM = (list) => {
-  let button = document.createElement("button");
+  const button = document.createElement("button");
   button.setAttribute("class", "list");
   button.setAttribute("id", list.listId);
   button.innerHTML = list.listTitle;
 
-  let content = document.createElement("div");
+  const content = document.createElement("div");
   content.setAttribute("class", "list-content");
   content.setAttribute("id", `content-${list.listId}`);
   content.style.display = "none";
 
-  let listTitleContainer = document.createElement("div");
+  const listTitleContainer = document.createElement("div");
   listTitleContainer.setAttribute("class", "list-content__title-container");
 
-  let listTitle = document.createElement("h2");
+  const listTitle = document.createElement("h2");
   listTitle.setAttribute("class", "list-content__title");
   listTitle.innerHTML = list.listTitle;
 
-  let deleteListButton = document.createElement("button");
+  const deleteListButton = document.createElement("button");
   deleteListButton.innerHTML =
     '<svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="trash-alt" class="svg-inline--fa fa-trash-alt fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="#990ed7" d="M268 416h24a12 12 0 0 0 12-12V188a12 12 0 0 0-12-12h-24a12 12 0 0 0-12 12v216a12 12 0 0 0 12 12zM432 80h-82.41l-34-56.7A48 48 0 0 0 274.41 0H173.59a48 48 0 0 0-41.16 23.3L98.41 80H16A16 16 0 0 0 0 96v16a16 16 0 0 0 16 16h16v336a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128h16a16 16 0 0 0 16-16V96a16 16 0 0 0-16-16zM171.84 50.91A6 6 0 0 1 177 48h94a6 6 0 0 1 5.15 2.91L293.61 80H154.39zM368 464H80V128h288zm-212-48h24a12 12 0 0 0 12-12V188a12 12 0 0 0-12-12h-24a12 12 0 0 0-12 12v216a12 12 0 0 0 12 12z"></path></svg>';
   deleteListButton.setAttribute("class", "list-delete-button");
@@ -232,7 +232,7 @@ const appendListToDOM = (list) => {
   }
 
   // Adding ul for tasks to store
-  let ul = document.createElement("ul");
+  const ul = document.createElement("ul");
   ul.setAttribute("class", "tasks-list");
 
   content.append(listTitleContainer);
@@ -249,14 +249,14 @@ const appendListToDOM = (list) => {
 // ------
 
 const openList = (contentId, listId) => {
-  let tasksListElements = document.getElementsByClassName("tasks-list");
+  const tasksListElements = document.getElementsByClassName("tasks-list");
   for (const tasksListElement of tasksListElements) {
     tasksListElement.innerHTML = "";
   }
 
   // Check importance of tasks and push them to separate array
   if (listId === "102") {
-    let importantTasks = [];
+    const importantTasks = [];
 
     listOfLists.forEach((list) =>
       list.listTasks.forEach((task) => {
@@ -283,13 +283,13 @@ const openList = (contentId, listId) => {
 
   // listContent and lists is an HTMLCollection and HTMLCollections do not have the forEach() method.
   // HTMLCollection can be used with the spread operator.
-  let listContent = document.getElementsByClassName("list-content");
+  const listContent = document.getElementsByClassName("list-content");
   [...listContent].forEach((list) => {
     list.style.display = "none";
     list.classList.remove("activeContent");
   });
 
-  let lists = document.getElementsByClassName("list");
+  const lists = document.getElementsByClassName("list");
   [...lists].forEach((list) => {
     list.classList.remove("active");
   });
@@ -297,7 +297,7 @@ const openList = (contentId, listId) => {
   document.getElementById(contentId).style.display = "flex";
   document.getElementById(contentId).classList.add("activeContent");
 
-  let currentList = document.getElementById(listId);
+  const currentList = document.getElementById(listId);
   currentList.classList.add("active");
 };
 
@@ -317,12 +317,12 @@ const addTask = (event) => {
     title = input.value;
   }
 
-  let currentList = document.querySelector(".active");
-  let id = currentList.id;
+  const currentList = document.querySelector(".active");
+  const id = currentList.id;
 
-  let newTask = taskFactory(title, id);
+  const newTask = taskFactory(title, id);
 
-  let index = listOfLists.findIndex((list) => list.listId === id);
+  const index = listOfLists.findIndex((list) => list.listId === id);
   listOfLists[index].listTasks.push(newTask);
   //------
 
@@ -344,7 +344,7 @@ const addList = (event) => {
     listTitle = listInput.value;
   }
 
-  let newList = listFactory(listTitle);
+  const newList = listFactory(listTitle);
   listOfLists.push(newList);
 
   listForm.reset();
