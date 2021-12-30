@@ -20,10 +20,17 @@ html,
 body {
   height: 100%;
 }
+.backgroundBlur {
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  z-index: 1;
+  display: none;
+}
 .main {
   grid-area: main;
   display: grid;
-  grid-template-columns: minmax(285px, 30%) 1fr;
+  grid-template-columns: minmax(300px, 30%) 1fr;
   gap: 2px;
   height: 100%;
   background-color: #990ed7;
@@ -40,6 +47,33 @@ body {
   background-color: #1b0229;
   overflow: auto;
 }
+.sidebarToggleIcon {
+  position: absolute;
+  z-index: 3;
+  pointer-events: none;
+}
+.sidebarToggleIcon svg path {
+  fill: #fff;
+}
+.closeMenu {
+  width: 30px;
+  height: 45px;
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.4s;
+  margin: 5px 10px;
+}
+.openMenu {
+  width: 30px;
+  height: 45px;
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.4s;
+  margin: 5px 10px;
+}
+#openSidebar {
+  display: none;
+}
 .left-sidebar {
   background: linear-gradient(to bottom, rgb(27, 2, 41), rgb(35, 2, 71));
   display: flex;
@@ -51,11 +85,42 @@ body {
   color: rgba(77, 0, 175, 0.6);
   opacity: 1;
 }
-.footer {
-  grid-area: ft;
-  background-color: #1b0229;
-  color: #fff;
-  text-align: center;
+@media (max-width: 600px) {
+  .left-sidebar {
+    height: 100%;
+    position: fixed;
+    left: 0;
+    width: 300px;
+    transform: translateX(-300px);
+    transition: transform 250ms ease-in-out;
+    z-index: 2;
+  }
+  .main-column {
+    grid-column: 1/3;
+  }
+  .sidebarToggleIcon {
+    pointer-events: auto;
+  }
+  .openMenu {
+    opacity: 1;
+  }
+  .closeMenu:hover,
+  .openMenu:hover {
+    cursor: pointer;
+  }
+  #openSidebar:checked ~ .left-sidebar {
+    transform: translateX(0);
+  }
+  #openSidebar:checked ~ .backgroundBlur {
+    display: block;
+    backdrop-filter: blur(4px);
+  }
+  #openSidebar:checked ~ .sidebarToggleIcon > .openMenu {
+    opacity: 0;
+  }
+  #openSidebar:checked ~ .sidebarToggleIcon > .closeMenu {
+    opacity: 1;
+  }
 }
 
 /* src/styles/tasks.css */
@@ -178,7 +243,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  padding: 30px 0 0 30px;
+  padding: 55px 0 0 30px;
   overflow: auto;
   flex: 1 1 auto;
 }
@@ -245,7 +310,7 @@ body {
 .list-page {
   display: flex;
   flex-direction: column;
-  padding: 20px 30px 0 30px;
+  padding: 45px 30px 0 30px;
   overflow: auto;
   flex: 1 1 auto;
 }
