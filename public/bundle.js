@@ -401,4 +401,10 @@
   };
   form.addEventListener("submit", addTask);
   listForm.addEventListener("submit", addList);
+  var backgroundBlurLayer = document.querySelector(".background-blur");
+  var sidebarToggle = document.querySelector("#sidebar-toggle-checkbox");
+  var closeSidebarOnBackgroundBlurClick = () => {
+    sidebarToggle.checked = false;
+  };
+  backgroundBlurLayer.addEventListener("click", closeSidebarOnBackgroundBlurClick);
 })();
